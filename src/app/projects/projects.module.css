@@ -1,0 +1,154 @@
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  border: 0;
+  margin-bottom: 56px;
+}
+
+.filters legend {
+  width: 100%;
+  margin-bottom: 16px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.filters input {
+  position: absolute;
+  opacity: 0;
+}
+
+.filters span {
+  display: inline-block;
+  padding: 10px 22px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.filters span:hover {
+  border-color: var(--ink);
+}
+
+.filters input:checked + span {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+.filters input:focus-visible + span {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.wrap:has(input[value="Residential"]:checked) .card:not([data-cat="Residential"]),
+.wrap:has(input[value="Commercial"]:checked) .card:not([data-cat="Commercial"]),
+.wrap:has(input[value="Retail"]:checked) .card:not([data-cat="Retail"]),
+.wrap:has(input[value="Hospitality"]:checked) .card:not([data-cat="Hospitality"]) {
+  display: none;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 72px 40px;
+}
+
+/* Replays every time a filter brings the card back from display:none */
+.card {
+  animation: fadeUp 0.9s var(--ease) backwards;
+}
+
+.card:nth-child(even) {
+  margin-top: 120px;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    animation: none;
+  }
+}
+
+.image {
+  aspect-ratio: 5 / 4;
+  border-radius: 4px;
+}
+
+.image img {
+  object-fit: cover;
+  transition: transform 1.2s var(--ease);
+}
+
+.card:hover .image img {
+  transform: scale(1.06);
+}
+
+.status {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(18, 17, 14, 0.7);
+  backdrop-filter: blur(8px);
+  color: var(--paper);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  padding-top: 22px;
+}
+
+.meta div > span {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.meta p {
+  color: var(--muted);
+}
+
+.arrow {
+  font-size: 1.8rem;
+  color: var(--ink);
+  transition: transform 0.5s var(--ease);
+}
+
+.card:hover .arrow {
+  transform: translateX(8px);
+}
+
+@media (max-width: 760px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 56px;
+  }
+
+  .card:nth-child(even) {
+    margin-top: 0;
+  }
+}

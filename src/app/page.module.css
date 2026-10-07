@@ -1,0 +1,246 @@
+/* ---------- 1. Hero ---------- */
+
+/* Tall track + sticky stage = scroll room for the roof window to open. Reduced motion: just one screen. */
+.hero {
+  position: relative;
+  height: 100svh;
+  min-height: 640px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero {
+    height: 230vh;
+  }
+}
+
+.stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  min-height: 640px;
+  overflow: hidden;
+}
+
+/* The photo is full-bleed but clipped to the roof triangle. 4 points (apex doubled) so it can morph into a rectangle. */
+.window {
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(73% 31%, 73% 31%, 90.5% 82%, 55.5% 82%);
+  background: var(--stone);
+}
+
+.window img {
+  object-fit: cover;
+}
+
+.shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(38, 39, 43, 0.75));
+  opacity: 0;
+}
+
+.roofline {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.roofline path {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 5px;
+  stroke-linejoin: miter;
+  vector-effect: non-scaling-stroke;
+}
+
+.lineNarrow {
+  display: none;
+}
+
+.copy {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 24px;
+  padding-top: 40px;
+  padding-bottom: 14vh;
+  pointer-events: none;
+}
+
+.copy > * {
+  pointer-events: auto;
+}
+
+.copy h1 {
+  color: var(--concrete);
+}
+
+.copy .lead {
+  max-width: 34ch;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.facts {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 3.5vh;
+  display: flex;
+  gap: clamp(20px, 4vw, 56px);
+  list-style: none;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.facts li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.facts b {
+  font-size: 1.15rem;
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 6vh;
+  color: var(--paper);
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  opacity: 0;
+}
+
+.caption span {
+  display: block;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 800;
+  font-style: italic;
+  letter-spacing: -0.03em;
+  text-transform: none;
+}
+
+/* Load-in: roofline draws, the window fades up inside it, copy rises. "backwards" so GSAP owns the end state. */
+@media (prefers-reduced-motion: no-preference) {
+  /* wipe left to right (stroke dashes can't be used with non-scaling strokes) */
+  .roofline {
+    animation: draw 1.8s 0.2s var(--ease) backwards;
+  }
+
+  .window img {
+    animation: settle 2s 0.6s var(--ease) backwards;
+  }
+
+  .copy > *,
+  .facts {
+    animation: rise 1.1s var(--ease) backwards;
+  }
+
+  .copy > :nth-child(1) {
+    animation-delay: 0.3s;
+  }
+
+  .copy > :nth-child(2) {
+    animation-delay: 0.42s;
+  }
+
+  .copy > :nth-child(3) {
+    animation-delay: 0.6s;
+  }
+
+  .copy > :nth-child(4) {
+    animation-delay: 0.72s;
+  }
+
+  .facts {
+    animation-delay: 0.9s;
+  }
+}
+
+@keyframes draw {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+}
+
+@keyframes settle {
+  from {
+    opacity: 0;
+    transform: scale(1.12);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+}
+
+@media (max-width: 900px) {
+  .window {
+    clip-path: polygon(50% 20%, 50% 20%, 73.5% 41.5%, 26.5% 41.5%);
+  }
+
+  .lineWide {
+    display: none;
+  }
+
+  .lineNarrow {
+    display: inline;
+  }
+
+  .copy {
+    justify-content: flex-end;
+    padding-bottom: 116px;
+    gap: 14px;
+  }
+
+  .actions {
+    flex-wrap: nowrap;
+  }
+
+  .actions :global(.btn) {
+    padding: 14px 18px;
+    font-size: 0.72rem;
+  }
+
+  .copy h1 {
+    font-size: clamp(2.6rem, 11vw, 4rem);
+  }
+
+  .copy .lead {
+    font-size: 0.95rem;
+  }
+
+  .facts {
+    font-size: 0.66rem;
+    gap: 16px;
+  }
+
+  .facts li {
+    flex-direction: column;
+    gap: 0;
+  }
+}

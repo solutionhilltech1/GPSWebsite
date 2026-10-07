@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 380" width="100%" height="100%">
+  <defs>
+    <!-- Slate Titanium Gradient -->
+    <linearGradient id="slateGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#475569" />
+      <stop offset="50%" stop-color="#334155" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+
+    <!-- Luxury Gold Gradient -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="40%" stop-color="#d97706" />
+      <stop offset="100%" stop-color="#b45309" />
+    </linearGradient>
+
+    <!-- Building Pillar Gradient -->
+    <linearGradient id="pillarGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#64748b" />
+      <stop offset="100%" stop-color="#334155" />
+    </linearGradient>
+
+    <filter id="subtleDrop" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-opacity="0.12" />
+    </filter>
+  </defs>
+
+  <g transform="translate(40, 20)">
+    <!-- GPS Letters -->
+    <g transform="skewX(-14)" filter="url(#subtleDrop)">
+      <text x="50" y="170" 
+            font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" 
+            font-size="142" 
+            font-weight="900" 
+            letter-spacing="-4" 
+            fill="url(#slateGrad)">GPS</text>
+    </g>
+
+    <!-- Golden Architectural Triangle & Skyscraper Pillars -->
+    <g transform="translate(460, 40)" filter="url(#subtleDrop)">
+      <!-- Outer Triangle Chevron -->
+      <polygon points="100,0 200,160 172,160 100,42 28,160 0,160" fill="url(#goldGrad)" />
+      <!-- Base connector -->
+      <rect x="0" y="152" width="200" height="10" rx="3" fill="url(#goldGrad)" />
+
+      <!-- High-rise Building Pillars -->
+      <!-- Left Column -->
+      <path d="M 46,146 L 46,95 L 68,82 L 68,146 Z" fill="url(#pillarGrad)" />
+      <!-- Center Tallest Column -->
+      <path d="M 74,146 L 74,58 L 100,42 L 126,58 L 126,146 Z" fill="#475569" />
+      <!-- Right Column -->
+      <path d="M 132,146 L 132,82 L 154,95 L 154,146 Z" fill="url(#pillarGrad)" />
+    </g>
+
+    <!-- Horizontal Gold Accent Divider Bar -->
+    <rect x="25" y="210" width="670" height="7" rx="3.5" fill="url(#goldGrad)" />
+
+    <!-- Subtitle: PROJECTS PRIVATE LIMITED -->
+    <text x="360" y="260" 
+          font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" 
+          font-size="33" 
+          font-weight="800" 
+          letter-spacing="4" 
+          text-anchor="middle" 
+          fill="#334155">PROJECTS PRIVATE LIMITED</text>
+
+    <!-- Tagline: Building a Better Tomorrow -->
+    <text x="360" y="298" 
+          font-family="Georgia, 'Times New Roman', serif" 
+          font-style="italic" 
+          font-size="22" 
+          letter-spacing="1.5" 
+          text-anchor="middle" 
+          fill="#64748b">Building a Better Tomorrow</text>
+  </g>
+</svg>

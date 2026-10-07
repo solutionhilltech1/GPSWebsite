@@ -1,0 +1,254 @@
+/* Palette taken from the GPS logo: concrete grey + roofline gold on light paper. */
+:root {
+  --paper: #f4f3ef;
+  --paper-2: #e9e7e1;
+  --stone: #dcd9d1;
+  --concrete: #6d6e72;
+  --ink: #26272b;
+  --ink-2: #333438;
+  --muted: #7c7d81;
+  --muted-light: #b4b2ab;
+  --gold: #c49a50;
+  --gold-light: #dcbc82;
+  --line: rgba(38, 39, 43, 0.14);
+  --line-light: rgba(244, 243, 239, 0.16);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --gutter: clamp(16px, 4vw, 56px);
+  --display: var(--font-sans), system-ui, sans-serif;
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  overflow-x: clip;
+}
+
+body {
+  color: var(--ink);
+  background: var(--paper);
+  font-family: var(--font-sans), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* ---------- Shared building blocks ---------- */
+
+.container {
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.section {
+  padding: clamp(80px, 12vw, 160px) 0;
+}
+
+.dark {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--concrete);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 2px;
+  background: var(--gold);
+}
+
+.dark .eyebrow {
+  color: var(--muted-light);
+}
+
+/* Headline voice of the logo: heavy, slanted, tight */
+.display {
+  font-family: var(--display);
+  font-weight: 800;
+  font-style: italic;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+}
+
+.display em {
+  color: var(--gold);
+}
+
+.h1 {
+  font-size: clamp(3rem, 8.4vw, 8rem);
+}
+
+.h2 {
+  font-size: clamp(2.2rem, 5.2vw, 4.6rem);
+}
+
+.h3 {
+  font-size: clamp(1.4rem, 2.6vw, 2.1rem);
+}
+
+.lead {
+  font-size: clamp(1.02rem, 1.4vw, 1.18rem);
+  color: var(--muted);
+  max-width: 52ch;
+}
+
+.dark .lead {
+  color: var(--muted-light);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 28px;
+  border: 1.5px solid currentColor;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  background: transparent;
+  transition: background 0.4s var(--ease), color 0.4s var(--ease), border-color 0.4s var(--ease);
+}
+
+.btn::after {
+  content: "→";
+  transition: transform 0.4s var(--ease);
+}
+
+.btn:hover::after {
+  transform: translateX(4px);
+}
+
+.btn:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+.dark .btn:hover,
+.btnGold:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+.btnGold {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--ink);
+}
+
+/* Media that moves inside its frame: the image is taller than the frame so parallax never shows an edge. */
+.frame {
+  position: relative;
+  overflow: hidden;
+}
+
+.frame > .media {
+  position: absolute;
+  inset: -12% 0;
+}
+
+.media img {
+  object-fit: cover;
+}
+
+/* Page hero shared by inner pages */
+.pageHero {
+  position: relative;
+  min-height: 78vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 160px 0 clamp(48px, 8vw, 96px);
+  color: var(--paper);
+  background: var(--ink);
+  overflow: hidden;
+}
+
+.pageHero > .media {
+  position: absolute;
+  inset: -12% 0;
+  opacity: 0.55;
+}
+
+.pageHero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(38, 39, 43, 0.5) 0%, rgba(38, 39, 43, 0) 40%, rgba(38, 39, 43, 0.85) 100%);
+}
+
+.pageHero > .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Scroll effect initial states (only when motion is allowed; ScrollFX animates them in) ---------- */
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal] {
+    opacity: 0;
+  }
+
+  [data-clip] {
+    clip-path: inset(100% 0% 0% 0%);
+  }
+}
+
+/* ---------- Route transitions ---------- */
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.5s;
+}
+
+::view-transition-group(.morph) {
+  animation-duration: 0.7s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}

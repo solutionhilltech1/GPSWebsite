@@ -1,0 +1,69 @@
+.skyline {
+  position: relative;
+  height: 130vh;
+  min-height: 760px;
+  overflow: hidden;
+  color: var(--paper);
+  background: linear-gradient(180deg, #12110e 0%, #2a2219 38%, #6b5034 66%, #c39462 88%, #e2bb84 100%);
+}
+
+.sun {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: min(60vw, 640px);
+  aspect-ratio: 1;
+  margin-left: max(-30vw, -320px);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 214, 160, 0.9) 0%, rgba(232, 176, 110, 0.35) 40%, transparent 70%);
+}
+
+.layer {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  bottom: -18%;
+  height: 92%;
+}
+
+.far {
+  fill: #4b3c2d;
+}
+
+.mid {
+  fill: #2b241c;
+  stroke: #2b241c;
+}
+
+.near {
+  fill: var(--ink);
+  height: 80%;
+}
+
+.window {
+  fill: var(--gold-light);
+  opacity: 0.75;
+}
+
+.copy {
+  position: absolute;
+  inset: 16% 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.hero {
+  height: 100svh;
+  min-height: 640px;
+}
+
+.hero .copy {
+  inset: 22% 0 auto;
+}
+
+.copy :global(.lead) {
+  color: rgba(243, 239, 231, 0.78);
+}
