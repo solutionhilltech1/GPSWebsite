@@ -56,7 +56,7 @@ export default function AdminClient() {
   const [editTags, setEditTags] = useState("");
   const [editLocation, setEditLocation] = useState("");
   const [editRecordedDate, setEditRecordedDate] = useState("");
-  const [editName, setEditName] = useState("");
+  const [editFile, setEditFile] = useState<File | null>(null);
   const [editDeveloper, setEditDeveloper] = useState("");
   const [isSaving, setIsSaving] = useState(false);
 
@@ -131,7 +131,7 @@ export default function AdminClient() {
     setEditTags((photo.tags || []).join(", "));
     setEditLocation(photo.location);
     setEditRecordedDate(photo.recordedDate);
-    setEditName(photo.name);
+    setEditFile(null);
     setEditDeveloper(photo.developer);
   };
 
@@ -150,7 +150,7 @@ export default function AdminClient() {
         tags: editTags,
         location: editLocation,
         recordedDate: editRecordedDate,
-        name: editName,
+        ...(editFile && { file: (await sendToUploadThing([editFile]))[0] }),
         developer: editDeveloper,
       };
 
@@ -776,14 +776,12 @@ export default function AdminClient() {
                   </div>
 
                   <div className={styles.formGroup}>
-                    <label className={styles.formLabel}>File Reference</label>
+                    <label className={styles.formLabel}>Change Photo (optional)</label>
                     <input
-                      type="text"
+                      type="file"
+                      accept="image/*"
                       className={styles.formInput}
-                      value={editName}
-                      onChange={(e) => setEditName(e.target.value)}
-                      maxLength={200}
-                      required
+                      onChange={(e) => setEditFile(e.target.files?.[0] ?? null)}
                     />
                   </div>
 

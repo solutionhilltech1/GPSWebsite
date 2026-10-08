@@ -72,9 +72,6 @@ export async function PUT(request: Request) {
 
   const file = uploaded(body.file);
   const recordedAt = dateOnly(body.recordedDate);
-  // Keep the file extension so Format & Size still reads correctly after a rename.
-  const ext = existing.name.match(/\.[^.]+$/)?.[0] ?? "";
-  const name = text(body.name, 200);
   await collection.updateOne(
     { _id },
     {
@@ -84,7 +81,6 @@ export async function PUT(request: Request) {
         ...(body.caption !== undefined && { caption: text(body.caption, 600) }),
         ...(body.category !== undefined && { category: text(body.category, 60) || existing.category }),
         ...(body.tags !== undefined && { tags: tagList(body.tags) }),
-        ...(!file && name && { name: name.toLowerCase().endsWith(ext.toLowerCase()) ? name : name + ext }),
         ...(body.location !== undefined && { location: text(body.location, 120) || DEFAULT_LOCATION }),
         ...(body.developer !== undefined && { developer: text(body.developer, 120) || DEFAULT_DEVELOPER }),
         ...(recordedAt && { recordedAt }),
