@@ -102,7 +102,7 @@ export default function ScrollFX() {
             })
             .to(q("[data-roof-copy]"), { autoAlpha: 0, x: -80, duration: 0.45 }, 0)
             .to(q("[data-roof-line]"), { opacity: 0, duration: 0.35 }, 0.05)
-            .to(q("[data-roof-window]"), { clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)", duration: 1, ease: "power2.inOut" }, 0)
+            .to(q("[data-roof-window]"), { clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)", bottom: 0, duration: 1, ease: "power2.inOut" }, 0)
             .fromTo(q("[data-roof-window] img"), { scale: 1.18 }, { scale: 1, duration: 1 }, 0)
             .to(q("[data-roof-shade]"), { opacity: 1, duration: 0.3 }, 0.75)
             .fromTo(q("[data-roof-caption]"), { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.25 }, 0.85)

@@ -24,7 +24,7 @@ export default function Home() {
 
           <svg className={styles.roofline} viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" data-roof-line>
             <path className={styles.lineWide} d="M3 86 H50 L73 22 L96 86 H82" />
-            <path className={styles.lineNarrow} d="M4 44 H16 L50 12 L84 44 H96" />
+            <path className={styles.lineNarrow} d="M4 96 H16 L50 8 L84 96 H96" />
           </svg>
 
           <div className={`container ${styles.copy}`} data-roof-copy>
