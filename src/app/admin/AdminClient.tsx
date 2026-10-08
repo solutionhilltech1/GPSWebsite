@@ -85,16 +85,14 @@ export default function AdminClient() {
     setLoading(true);
     try {
       const res = await fetch("/api/admin/gallery", { cache: "no-store" });
-      if (res.status === 401) {
-        setIsAuthenticated(false);
-        return;
-      }
-      const json = await res.json();
+      // Anything but 401 means the session is fine, so stay logged in even if the data failed to load.
+      setIsAuthenticated(res.status !== 401);
+      if (res.status === 401) return;
+      const json = await res.json().catch(() => ({ error: `Server error ${res.status}` }));
       if (!json.success) throw new Error(json.error);
-      setIsAuthenticated(true);
       setData(json);
-    } catch {
-      showToast("Failed to load gallery items");
+    } catch (err) {
+      showToast(`Failed to load gallery items: ${(err as Error).message}`);
     } finally {
       setLoading(false);
     }

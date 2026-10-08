@@ -36,3 +36,4 @@ for (const name of fs.readdirSync(dir)) {
   console.log("migrated", name);
 }
 await client.close();
+process.exit(0); // UTApi keeps the event loop alive
