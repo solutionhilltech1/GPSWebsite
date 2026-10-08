@@ -498,6 +498,7 @@
   font-family: var(--display);
   font-style: italic;
   font-size: 1.4rem;
+  overflow-wrap: anywhere;
 }
 
 .dropSubtitle {
