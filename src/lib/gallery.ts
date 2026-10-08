@@ -1,4 +1,5 @@
-import { MongoClient, type ObjectId, type WithId } from "mongodb";
+import type { ObjectId, WithId } from "mongodb";
+import { db } from "./mongo";
 
 // One photo in the `gallery` collection. The image itself lives on UploadThing under `key`.
 export type PhotoDoc = {
@@ -21,16 +22,7 @@ export type PhotoDoc = {
 // Shape sent to the gallery and admin pages.
 export type GalleryItem = ReturnType<typeof toItem>;
 
-const g = globalThis as { _mongo?: Promise<MongoClient> };
-
-// Reuse one connection across requests and dev hot reloads; retry if the first connect failed.
-export async function photos() {
-  g._mongo ??= new MongoClient(process.env.MONGODB_URI!).connect().catch((err) => {
-    g._mongo = undefined;
-    throw err;
-  });
-  return (await g._mongo).db(process.env.MONGODB_DB).collection<PhotoDoc>("gallery");
-}
+export const photos = async () => (await db()).collection<PhotoDoc>("gallery");
 
 const formatBytes = (bytes: number) => {
   const i = bytes ? Math.floor(Math.log(bytes) / Math.log(1024)) : 0;

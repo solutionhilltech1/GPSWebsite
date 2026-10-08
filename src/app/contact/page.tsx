@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import EnquiryForm from "@/components/EnquiryForm";
 import { site } from "@/data/site";
+import { getProjects } from "@/lib/projects";
 import styles from "./contact.module.css";
 
 export const metadata: Metadata = {
@@ -10,7 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: "/contact" },
 };
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const projects = await getProjects();
   return (
     <>
       <section className="pageHero">
@@ -47,7 +49,7 @@ export default function ContactPage() {
             </div>
           </div>
           <div data-reveal>
-            <EnquiryForm />
+            <EnquiryForm projectNames={projects.map((p) => p.name)} />
           </div>
         </div>
       </section>

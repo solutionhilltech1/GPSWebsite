@@ -2,10 +2,10 @@
 
 import { useActionState } from "react";
 import { sendEnquiry } from "@/app/actions";
-import { projects } from "@/data/site";
 import styles from "./EnquiryForm.module.css";
 
-export default function EnquiryForm({ project = "" }: { project?: string }) {
+// projectNames comes from the server page: this is a client component and can't read MongoDB.
+export default function EnquiryForm({ project = "", projectNames }: { project?: string; projectNames: string[] }) {
   const [state, action, pending] = useActionState(sendEnquiry, null);
 
   if (state?.ok) {
@@ -34,9 +34,9 @@ export default function EnquiryForm({ project = "" }: { project?: string }) {
         <span>Interested in</span>
         <select name="project" defaultValue={project}>
           <option value="">General enquiry</option>
-          {projects.map((p) => (
-            <option key={p.slug} value={p.name}>
-              {p.name}
+          {projectNames.map((name) => (
+            <option key={name} value={name}>
+              {name}
             </option>
           ))}
         </select>

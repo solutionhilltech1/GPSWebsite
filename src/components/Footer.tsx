@@ -1,8 +1,10 @@
 import Link from "next/link";
-import { projects, site } from "@/data/site";
+import { site } from "@/data/site";
+import { getProjects } from "@/lib/projects";
 import styles from "./Footer.module.css";
 
-export default function Footer() {
+export default async function Footer() {
+  const projects = await getProjects();
   return (
     <footer className={`${styles.footer} dark`}>
       <div className="container">
@@ -64,8 +66,7 @@ export default function Footer() {
           </Link>
         </p>
         <p>
-          Images are artistic impressions. Project details are subject to approvals. Refer to RERA registration
-          numbers on each project page.
+          Renderings of upcoming projects are artistic impressions. Project details are subject to approvals.
         </p>
       </div>
     </footer>

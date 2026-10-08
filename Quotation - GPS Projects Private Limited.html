@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Commercial Quotation — GPS Projects Private Limited</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0f2a5c;
+      --primary-light: #1e3a8a;
+      --accent: #2563eb;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-light: #64748b;
+      --border: #e2e8f0;
+      --bg-card: #f8fafc;
+      --green-bg: #f0fdf4;
+      --green-text: #166534;
+      --green-border: #bbf7d0;
+      --amber-text: #9a3412;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background-color: #f1f5f9;
+      color: var(--text-main);
+      line-height: 1.45;
+      padding: 40px 20px;
+      font-size: 13.5px;
+    }
+
+    .toolbar {
+      max-width: 860px;
+      margin: 0 auto 20px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .btn-print {
+      background: var(--primary-light);
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+      transition: background 0.2s;
+    }
+    .btn-print:hover { background: var(--primary); }
+
+    .doc-page {
+      max-width: 860px;
+      margin: 0 auto 30px auto;
+      background: #ffffff;
+      padding: 45px 50px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      border: 1px solid var(--border);
+    }
+
+    .header-table {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 20px;
+      margin-bottom: 22px;
+    }
+    .logo-container img {
+      max-width: 210px;
+      height: auto;
+      margin-bottom: 6px;
+    }
+    .logo-text h2 {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: 0.5px;
+    }
+    .logo-text p {
+      font-size: 11.5px;
+      color: var(--text-light);
+      margin-top: 1px;
+    }
+
+    .quotation-badge { text-align: right; }
+    .quotation-badge h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+    }
+    .quotation-badge .tag {
+      display: inline-block;
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 12px;
+      margin-top: 2px;
+      margin-bottom: 8px;
+    }
+    .meta-list {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .meta-list strong { color: var(--text-main); }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .info-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .info-card h3 {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--primary-light);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .info-card h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+    .info-card p {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--primary);
+      margin-top: 22px;
+      margin-bottom: 12px;
+    }
+    .section-subtitle {
+      font-size: 12px;
+      color: var(--text-light);
+      font-style: italic;
+      margin-top: -6px;
+      margin-bottom: 12px;
+    }
+
+    .scope-list { list-style: none; margin-bottom: 20px; }
+    .scope-item {
+      display: flex;
+      gap: 10px;
+      font-size: 12.5px;
+      margin-bottom: 8px;
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+    .scope-item .bullet {
+      color: var(--accent);
+      font-weight: bold;
+      font-size: 14px;
+      line-height: 1.2;
+    }
+    .scope-item strong { color: var(--text-main); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 16px;
+      font-size: 12.5px;
+    }
+    th {
+      background: var(--primary);
+      color: #fff;
+      font-weight: 700;
+      text-align: left;
+      padding: 10px 12px;
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+      vertical-align: middle;
+    }
+    tr.green-row {
+      background-color: var(--green-bg);
+      border-color: var(--green-border);
+    }
+    .badge-green {
+      display: inline-block;
+      padding: 3px 8px;
+      background: #dcfce7;
+      color: var(--green-text);
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .badge-amber {
+      display: inline-block;
+      padding: 3px 8px;
+      background: #fef3c7;
+      color: var(--amber-text);
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .total-banner {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: #fff;
+      border-radius: 8px;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    .total-banner .label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #93c5fd;
+      font-weight: 700;
+    }
+    .total-banner .amount-words {
+      font-size: 14px;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+    .total-banner .amount-num {
+      font-size: 26px;
+      font-weight: 800;
+      color: #fff;
+      text-align: right;
+    }
+
+    .terms-list {
+      list-style: none;
+      margin-bottom: 24px;
+    }
+    .terms-item {
+      display: flex;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      line-height: 1.45;
+    }
+    .terms-item .bullet { color: var(--accent); font-weight: bold; }
+    .terms-item strong { color: var(--text-main); }
+
+    .sign-table {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 10px;
+    }
+    .sign-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .sign-box h4 {
+      font-size: 11.5px;
+      font-weight: 800;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .sign-box .role {
+      font-size: 11px;
+      color: var(--text-light);
+      margin-bottom: 30px;
+    }
+    .sign-field {
+      font-size: 11.5px;
+      line-height: 1.8;
+      color: var(--text-muted);
+    }
+    .sign-field strong { color: var(--text-main); }
+
+    @media print {
+      body { background: #fff; padding: 0; }
+      .toolbar { display: none; }
+      .doc-page {
+        box-shadow: none;
+        border: none;
+        padding: 0;
+        max-width: 100%;
+        margin-bottom: 0;
+      }
+      .page-break { page-break-before: always; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <div style="font-weight: 700; color: #475569; font-size: 14px;">Quotation Ref: QT-GPS-2026-001</div>
+    <button class="btn-print" onclick="window.print()">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/><path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/></svg>
+      Print / Save as PDF
+    </button>
+  </div>
+
+  <div class="doc-page">
+    <!-- PAGE 1: HEADER & DELIVERABLES -->
+    <div class="header-table">
+      <div class="logo-container">
+        <img src="public/logo-transparent.png" alt="GPS Projects Logo">
+        <div class="logo-text">
+          <h2>GPS PROJECTS PRIVATE LIMITED</h2>
+          <p>Civil Construction & Infrastructure | Building a Better Tomorrow</p>
+        </div>
+      </div>
+      <div class="quotation-badge">
+        <h1>Quotation</h1>
+        <div class="tag">Corporate Website & CMS Platform</div>
+        <div class="meta-list">
+          <div><strong>Quotation Ref:</strong> QT-GPS-2026-001</div>
+          <div><strong>Date of Issue:</strong> 08 October 2026</div>
+          <div><strong>Validity:</strong> 15 Days (Until 23 Oct 2026)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CLIENT & PROVIDER CARDS -->
+    <div class="grid-2">
+      <div class="info-card">
+        <h3>Prepared For (Client)</h3>
+        <h4>GPS Projects Private Limited</h4>
+        <p>
+          <strong>CIN:</strong> U41001UW2026PTC258583 (ROC UP II)<br>
+          <strong>Address:</strong> House No. 138, Pipal Adda, Etah, UP - 207001<br>
+          <strong>Industry:</strong> Civil Construction & Infrastructure<br>
+          <strong>Directors:</strong> Chirag Rajput / Rahul Verma
+        </p>
+      </div>
+      <div class="info-card">
+        <h3>Prepared By (Service Provider)</h3>
+        <h4>Akshit Mahajan</h4>
+        <p>
+          <strong>Role:</strong> Lead Full-Stack Web Engineer & Consultant<br>
+          <strong>Architecture:</strong> Next.js 16, React 19, TypeScript, MongoDB<br>
+          <strong>Email:</strong> hello@gpsprimeprojects.in<br>
+          <strong>Preview Staging:</strong> gps-one-opal.vercel.app
+        </p>
+      </div>
+    </div>
+
+    <!-- 1. OBJECTIVE -->
+    <div class="section-title">1. Project Objective & Executive Summary</div>
+    <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 18px; line-height: 1.5;">
+      This quotation presents the comprehensive scope, technical architecture, infrastructure cost ownership, and commercial investment for engineering and deploying a bespoke corporate website for <strong>GPS Projects Private Limited</strong>. The platform is designed to establish an authoritative digital identity, showcase residential, commercial, and industrial construction projects, drive qualified customer inquiries with instant automated email alerts, and empower company staff with a dedicated, no-code Content Management System (CMS) to manage live portfolio listings.
+    </p>
+
+    <!-- 2. SCOPE -->
+    <div class="section-title">2. Detailed Scope of Services & Deliverables</div>
+    <ul class="scope-list">
+      <li class="scope-item">
+        <span class="bullet">■</span>
+        <div><strong>Bespoke Responsive UI/UX Architecture:</strong> Custom-built on Next.js 16 and React 19 with a mobile-first design system. Perfectly adapted for smartphones, tablets, laptops, and 4K displays, incorporating official corporate colors, high-resolution imagery, and clean typography.</div>
+      </li>
+      <li class="scope-item">
+        <span class="bullet">■</span>
+        <div><strong>6 Dedicated Core Corporate Pages & Sections:</strong> Homepage (hero branding, metrics counters, service previews, portfolio showcase, contact triggers), About Us (incorporation records, ROC UP II registration, mission, leadership profiles), Services (detailed breakdown of Residential, Commercial & Industrial Construction), Projects Portfolio (categorized dynamic listings), Photo Gallery (interactive lightbox viewer), and Contact Us (verified corporate address, direct phone/email actions, and inquiry form).</div>
+      </li>
+      <li class="scope-item">
+        <span class="bullet">■</span>
+        <div><strong>Lead Capture & Automated Email Notification System:</strong> Interactive customer inquiry form with client & server-side validation, anti-spam honeypot shielding, and automatic SMTP email dispatch forwarding inquiries directly to company management.</div>
+      </li>
+      <li class="scope-item">
+        <span class="bullet">■</span>
+        <div><strong>Dynamic Admin Content Management System (CMS):</strong> Secure administrative portal (/admin) empowering company staff to add, update, or archive project details, images, specifications, completion stages, and locations without writing code.</div>
+      </li>
+      <li class="scope-item">
+        <span class="bullet">■</span>
+        <div><strong>Comprehensive SEO & Social Sharing Integration:</strong> Production-grade SEO setup including Schema.org JSON-LD structured data (Corporate Entity & Postal Address schema), automated dynamic XML sitemap (/sitemap.xml), robots.txt crawler directives, and branded OpenGraph preview cards for WhatsApp and social sharing.</div>
+      </li>
+      <li class="scope-item">
+        <span class="bullet">■</span>
+        <div><strong>Performance Optimization, SSL Encryption & Multi-Browser QA:</strong> Instantaneous page loading via server-side rendering, asset compression, SSL/TLS HTTPS encryption, and rigorous cross-browser testing on Google Chrome, Apple Safari, Microsoft Edge, and Firefox.</div>
+      </li>
+    </ul>
+
+    <!-- PAGE BREAK -->
+    <div class="page-break" style="margin-top: 30px;"></div>
+
+    <!-- 3. INFRASTRUCTURE & HOSTING OWNERSHIP -->
+    <div class="section-title">3. Infrastructure, Hosting & Domain Ownership</div>
+    <div class="section-subtitle">Transparent operational division guaranteeing zero recurring server/hosting fees for the client</div>
+    
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 25%;">Infrastructure Component</th>
+          <th style="width: 30%; text-align: center;">Cost Responsibility</th>
+          <th>Scope & Operational Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="green-row">
+          <td><strong>Cloud Web Hosting & MongoDB Database</strong></td>
+          <td style="text-align: center;"><span class="badge-green">BORNE BY SERVICE PROVIDER<br>(100% COMPLIMENTARY)</span></td>
+          <td>All production cloud web hosting, serverless compute runtime, and cloud database (MongoDB) infrastructure charges are fully provided and borne by the Service Provider at zero recurring cost to GPS Projects Private Limited. Includes SSL/TLS certificate setup and automatic renewals.<br><small style="color: var(--green-text); font-weight: 700;">Client Savings: Approx. ₹6,000 - ₹12,000 / year in recurring server bills.</small></td>
+        </tr>
+        <tr>
+          <td><strong>Domain Name Registration & Renewals</strong></td>
+          <td style="text-align: center;"><span class="badge-amber">BORNE BY CLIENT<br>(CUSTOMER RESPONSIBILITY)</span></td>
+          <td>GPS Projects Private Limited will bear the annual domain registration fees directly through their preferred registrar (e.g., GoDaddy, Namecheap, Hostinger) or reimburse at actual registrar cost (~₹800 - ₹1,200/yr).<br><small style="color: var(--text-light);">Service Provider Scope: Complete DNS records routing (A, CNAME, TXT), domain mapping, and SSL binding performed at zero developer fee.</small></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- 4. FINANCIAL SUMMARY -->
+    <div class="section-title">4. Commercial Investment & Financial Summary</div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 8%; text-align: center;">S.No</th>
+          <th style="width: 52%;">Deliverable / Service Component</th>
+          <th style="width: 22%; text-align: center;">Cost Responsibility</th>
+          <th style="width: 18%; text-align: right;">Amount (INR)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: center; font-weight: 700; color: var(--text-light);">01</td>
+          <td><strong>Full-Stack Corporate Website Development</strong><br><small style="color: var(--text-light);">Next.js 16 + React 19, 6 Pages, Inquiries System, SEO & Structured Data</small></td>
+          <td style="text-align: center; font-size: 11.5px;">One-Time Development Fee</td>
+          <td style="text-align: right; font-weight: 800; color: var(--text-main);">₹8,000/-</td>
+        </tr>
+        <tr>
+          <td style="text-align: center; font-weight: 700; color: var(--text-light);">02</td>
+          <td><strong>Dynamic Admin CMS Portal (/admin)</strong><br><small style="color: var(--text-light);">Password-protected dashboard for live project and portfolio updates</small></td>
+          <td style="text-align: center; font-size: 11.5px;">Included in Base Fee</td>
+          <td style="text-align: right; font-weight: 700; color: var(--green-text);">₹0 (Included)</td>
+        </tr>
+        <tr class="green-row">
+          <td style="text-align: center; font-weight: 700; color: var(--text-light);">03</td>
+          <td><strong>Production Cloud Web Hosting</strong><br><small style="color: var(--text-light);">High-performance edge cloud deployment with 99.9% uptime SLA</small></td>
+          <td style="text-align: center; font-size: 11.5px; font-weight: 700; color: var(--green-text);">Borne by Service Provider</td>
+          <td style="text-align: right; font-weight: 700; color: var(--green-text);">₹0 (Complimentary)</td>
+        </tr>
+        <tr class="green-row">
+          <td style="text-align: center; font-weight: 700; color: var(--text-light);">04</td>
+          <td><strong>Cloud Database Infrastructure (MongoDB)</strong><br><small style="color: var(--text-light);">Secure managed cloud database for CMS records & inquiries</small></td>
+          <td style="text-align: center; font-size: 11.5px; font-weight: 700; color: var(--green-text);">Borne by Service Provider</td>
+          <td style="text-align: right; font-weight: 700; color: var(--green-text);">₹0 (Complimentary)</td>
+        </tr>
+        <tr class="green-row">
+          <td style="text-align: center; font-weight: 700; color: var(--text-light);">05</td>
+          <td><strong>SSL Security Certificate (HTTPS Encryption)</strong><br><small style="color: var(--text-light);">Automated configuration, HTTPS redirect & yearly renewals</small></td>
+          <td style="text-align: center; font-size: 11.5px; font-weight: 700; color: var(--green-text);">Borne by Service Provider</td>
+          <td style="text-align: right; font-weight: 700; color: var(--green-text);">₹0 (Complimentary)</td>
+        </tr>
+        <tr>
+          <td style="text-align: center; font-weight: 700; color: var(--text-light);">06</td>
+          <td><strong>Official Domain Name Registration & Annual Renewals</strong><br><small style="color: var(--text-light);">Purchased directly via registrar (e.g. GoDaddy, Namecheap)</small></td>
+          <td style="text-align: center; font-size: 11.5px; font-weight: 700; color: var(--amber-text);">Borne by Client (Customer)</td>
+          <td style="text-align: right; font-size: 11.5px; color: var(--text-light);">At Actuals<br>(~₹800 - ₹1,200/yr)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="total-banner">
+      <div>
+        <div class="label">Total Fixed Investment Payable to Service Provider</div>
+        <div class="amount-words">INR ₹8,000/- (Indian Rupees Eight Thousand Only)</div>
+      </div>
+      <div>
+        <div class="amount-num">₹8,000</div>
+      </div>
+    </div>
+
+    <!-- 5. COMMERCIAL TERMS -->
+    <div class="section-title">5. Commercial Terms & Project Conditions</div>
+    <ul class="terms-list">
+      <li class="terms-item">
+        <span class="bullet">•</span>
+        <div><strong>Payment Milestones:</strong> The fixed fee of ₹8,000/- is structured across two milestones: 50% Mobilization Advance (₹4,000) upon project acceptance and work commencement; 50% Final Settlement (₹4,000) upon final staging review, client sign-off, and live production domain launch.</div>
+      </li>
+      <li class="terms-item">
+        <span class="bullet">•</span>
+        <div><strong>Turnaround Timeline:</strong> Standard project completion is 7 to 10 business days from receipt of initial mobilization advance and necessary corporate media assets.</div>
+      </li>
+      <li class="terms-item">
+        <span class="bullet">•</span>
+        <div><strong>Domain Registrar Responsibility:</strong> GPS Projects Private Limited shall purchase the official domain directly or reimburse the registrar invoice at exact actual cost. Recurring annual renewals remain the responsibility of the client. DNS mapping, record routing, and SSL linking are included at zero developer fee.</div>
+      </li>
+      <li class="terms-item">
+        <span class="bullet">•</span>
+        <div><strong>Hosting & Database Commitment:</strong> All production web hosting and cloud database infrastructure are borne by the Service Provider with no recurring infrastructure bills charged to the client.</div>
+      </li>
+      <li class="terms-item">
+        <span class="bullet">•</span>
+        <div><strong>Warranty & Post-Launch Support:</strong> Includes 30 calendar days of complimentary technical support post-deployment covering bug resolution, display adjustments, and admin panel guidance.</div>
+      </li>
+      <li class="terms-item">
+        <span class="bullet">•</span>
+        <div><strong>Client Responsibilities:</strong> Prompt delivery of brand logos, verified project photos, company copy, and registrar credentials for seamless DNS mapping.</div>
+      </li>
+      <li class="terms-item">
+        <span class="bullet">•</span>
+        <div><strong>Scope Amendments:</strong> Any advanced functionality requested outside the outlined 6 pages (e.g., payment gateway, custom accounting ERP integrations) will be estimated under a separate change order.</div>
+      </li>
+    </ul>
+
+    <!-- 6. ACCEPTANCE -->
+    <div class="section-title">6. Acceptance & Project Authorization</div>
+    <div class="section-subtitle">Sign below to accept this quotation and authorize commencement under the outlined commercial terms</div>
+
+    <div class="sign-table">
+      <div class="sign-box">
+        <h4>For: GPS Projects Private Limited</h4>
+        <div class="role">Authorized Client Signatory</div>
+        <div class="sign-field">
+          <strong>Signature:</strong> ___________________________________<br>
+          <strong>Name:</strong> ___________________________________<br>
+          <strong>Designation:</strong> Director / Authorized Signatory<br>
+          <strong>Date:</strong> _____ / _____ / 2026
+        </div>
+      </div>
+      <div class="sign-box">
+        <h4>For: Service Provider</h4>
+        <div class="role">Lead Full-Stack Web Engineer</div>
+        <div class="sign-field">
+          <strong>Signature:</strong> ___________________________________<br>
+          <strong>Name:</strong> Akshit Mahajan<br>
+          <strong>Designation:</strong> Lead Web Engineering & Consultant<br>
+          <strong>Date:</strong> 08 / 10 / 2026
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

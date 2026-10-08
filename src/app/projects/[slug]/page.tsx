@@ -5,15 +5,18 @@ import { notFound } from "next/navigation";
 import { ViewTransition } from "react";
 import EnquiryForm from "@/components/EnquiryForm";
 import JsonLd from "@/components/JsonLd";
-import { getProject, projects, site } from "@/data/site";
+import { site } from "@/data/site";
+import { getProject, getProjects } from "@/lib/projects";
 import styles from "./project.module.css";
 
-export function generateStaticParams() {
-  return projects.map((p) => ({ slug: p.slug }));
+// Cache Components needs at least one param at build time, even with an empty collection.
+export async function generateStaticParams() {
+  const projects = await getProjects();
+  return projects.length ? projects.map((p) => ({ slug: p.slug })) : [{ slug: "__none__" }];
 }
 
 export async function generateMetadata({ params }: PageProps<"/projects/[slug]">): Promise<Metadata> {
-  const project = getProject((await params).slug);
+  const project = await getProject((await params).slug);
   return project
     ? {
         title: project.name,
@@ -25,10 +28,11 @@ export async function generateMetadata({ params }: PageProps<"/projects/[slug]">
 
 export default async function ProjectPage({ params }: PageProps<"/projects/[slug]">) {
   const { slug } = await params;
-  const project = getProject(slug);
+  const projects = await getProjects();
+  const project = projects.find((p) => p.slug === slug);
   if (!project) notFound();
 
-  const next = projects[(projects.indexOf(project) + 1) % projects.length];
+  const next = projects.length > 1 ? projects[(projects.indexOf(project) + 1) % projects.length] : null;
 
   return (
     <>
@@ -74,32 +78,36 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
                 </div>
               ))}
             </dl>
-            <p className={styles.rera} data-reveal>
-              RERA: {project.rera}
-            </p>
+            {project.rera && (
+              <p className={styles.rera} data-reveal>
+                RERA: {project.rera}
+              </p>
+            )}
           </div>
         </div>
       </section>
 
-      <section className={styles.gallery}>
-        <div className="container">
-          {project.gallery.map((src, i) => (
-            <div key={src} className={`${styles.shot} frame`} data-clip>
-              <div className="media" data-speed={0.15 + i * 0.08}>
-                <Image src={src} alt={`${project.name} view ${i + 1}`} fill sizes="(max-width: 900px) 100vw, 60vw" />
+      {project.gallery.length > 0 && (
+        <section className={styles.gallery}>
+          <div className="container">
+            {project.gallery.map((src, i) => (
+              <div key={src} className={`${styles.shot} frame`} data-clip>
+                <div className="media" data-speed={0.15 + i * 0.08}>
+                  <Image src={src} alt={`${project.name} view ${i + 1}`} fill sizes="(max-width: 900px) 100vw, 60vw" />
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section className="section dark">
         <div className="container">
           <span className="eyebrow" data-reveal>
-            Amenities
+            Highlights
           </span>
           <ul className={styles.amenities}>
-            {project.amenities.map((a, i) => (
+            {project.highlights.map((a, i) => (
               <li key={a} data-reveal>
                 <span>{String(i + 1).padStart(2, "0")}</span>
                 {a}
@@ -114,26 +122,28 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
           <div>
             <span className="eyebrow">Enquire</span>
             <h2 className="display h2">
-              Interested in <em>{project.name}</em>?
+              Planning something <em>like this?</em>
             </h2>
             <p className="lead">
-              Get the brochure, floor plans and pricing, or book a guided site visit. Call{" "}
+              Tell us about your site and what you want to build, and our team will get back to you. Or call{" "}
               <a href={`tel:${site.phone.replace(/\s/g, "")}`}>{site.phone}</a>.
             </p>
           </div>
-          <EnquiryForm project={project.name} />
+          <EnquiryForm project={project.name} projectNames={projects.map((p) => p.name)} />
         </div>
       </section>
 
-      <Link href={`/projects/${next.slug}`} className={`${styles.next} dark`}>
-        <div className="media" data-speed="0.3">
-          <Image src={next.image} alt="" fill sizes="100vw" />
-        </div>
-        <div className="container">
-          <span className="eyebrow">Next project</span>
-          <span className="display h1">{next.name} →</span>
-        </div>
-      </Link>
+      {next && (
+        <Link href={`/projects/${next.slug}`} className={`${styles.next} dark`}>
+          <div className="media" data-speed="0.3">
+            <Image src={next.image} alt="" fill sizes="100vw" />
+          </div>
+          <div className="container">
+            <span className="eyebrow">Next project</span>
+            <span className="display h1">{next.name} →</span>
+          </div>
+        </Link>
+      )}
     </>
   );
 }

@@ -48,10 +48,10 @@
   outline-offset: 3px;
 }
 
-.wrap:has(input[value="Residential"]:checked) .card:not([data-cat="Residential"]),
 .wrap:has(input[value="Commercial"]:checked) .card:not([data-cat="Commercial"]),
-.wrap:has(input[value="Retail"]:checked) .card:not([data-cat="Retail"]),
-.wrap:has(input[value="Hospitality"]:checked) .card:not([data-cat="Hospitality"]) {
+.wrap:has(input[value="Healthcare"]:checked) .card:not([data-cat="Healthcare"]),
+.wrap:has(input[value="Religious"]:checked) .card:not([data-cat="Religious"]),
+.wrap:has(input[value="Residential"]:checked) .card:not([data-cat="Residential"]) {
   display: none;
 }
 

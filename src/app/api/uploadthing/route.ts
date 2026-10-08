@@ -4,16 +4,17 @@ import { ADMIN_COOKIE, validSession } from "@/lib/auth";
 
 const f = createUploadthing();
 
+// Read the cookie off `req`, not cookies(): this runs inside UploadThing's Effect runtime.
+const adminOnly = ({ req }: { req: Request & { cookies: { get(name: string): { value: string } | undefined } } }) => {
+  if (!validSession(req.cookies.get(ADMIN_COOKIE)?.value)) throw new UploadThingError({ code: "FORBIDDEN", message: "Please log in again." });
+  return {};
+};
+
 // Browsers upload straight to UploadThing; this only signs uploads for a logged-in admin.
-// The admin page then saves the returned keys + captions through /api/admin/gallery.
+// The admin pages then save the returned keys through /api/admin/gallery or /api/admin/projects.
 const router = {
-  galleryImage: f({ image: { maxFileSize: "16MB", maxFileCount: 20 } })
-    // Read the cookie off `req`, not cookies(): this runs inside UploadThing's Effect runtime.
-    .middleware(({ req }) => {
-      if (!validSession(req.cookies.get(ADMIN_COOKIE)?.value)) throw new UploadThingError({ code: "FORBIDDEN", message: "Please log in again." });
-      return {};
-    })
-    .onUploadComplete(() => {}),
+  galleryImage: f({ image: { maxFileSize: "16MB", maxFileCount: 20 } }).middleware(adminOnly).onUploadComplete(() => {}),
+  projectImage: f({ image: { maxFileSize: "16MB", maxFileCount: 20 } }).middleware(adminOnly).onUploadComplete(() => {}),
 } satisfies FileRouter;
 
 export type GalleryRouter = typeof router;

@@ -5,6 +5,7 @@ import "lenis/dist/lenis.css";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SiteChrome from "@/components/SiteChrome";
 import ScrollFX from "@/components/ScrollFX";
 import JsonLd from "@/components/JsonLd";
 import { site } from "@/data/site";
@@ -73,11 +74,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en-IN" className={archivo.variable}>
       <body>
         <JsonLd data={{ "@graph": [org, website] }} />
-        <Header />
+        <SiteChrome>
+          <Header />
+        </SiteChrome>
         <ViewTransition>
           <main>{children}</main>
         </ViewTransition>
-        <Footer />
+        <SiteChrome>
+          <Footer />
+        </SiteChrome>
         <Suspense>
           <ScrollFX />
         </Suspense>

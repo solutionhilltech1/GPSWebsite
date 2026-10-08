@@ -5,7 +5,11 @@ const nextConfig: NextConfig = {
   partialPrefetching: true,
   images: {
     // ponytail: placeholder photography from Unsplash, swap for client renders in /public and drop this
-    remotePatterns: [{ protocol: "https", hostname: "images.unsplash.com", pathname: "/photo-**" }],
+    remotePatterns: [
+      { protocol: "https", hostname: "images.unsplash.com", pathname: "/photo-**" },
+      // Project + gallery photos uploaded through /admin
+      { protocol: "https", hostname: "*.ufs.sh", pathname: "/f/**" },
+    ],
   },
 };
 

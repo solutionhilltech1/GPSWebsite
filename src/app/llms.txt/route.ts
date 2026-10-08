@@ -1,7 +1,9 @@
-import { projects, services, site } from "@/data/site";
+import { services, site } from "@/data/site";
+import { getProjects } from "@/lib/projects";
 
 // llms.txt (https://llmstxt.org): a plain-text summary of the site for AI assistants. Built at deploy time.
-export function GET() {
+export async function GET() {
+  const projects = await getProjects();
   const body = `# ${site.fullName}
 
 > ${site.description}
@@ -15,7 +17,7 @@ ${services.map((s) => `- ${s.title}: ${s.text}`).join("\n")}
 ## Pages
 
 - [Home](${site.url}/): Company overview
-- [Projects](${site.url}/projects): All residential and commercial projects
+- [Projects](${site.url}/projects): Commercial, healthcare and religious projects
 - [Services](${site.url}/services): Civil construction, infrastructure, design and project management
 - [Gallery](${site.url}/gallery): Construction progress and site photography
 - [About](${site.url}/about): Company story, vision and timeline

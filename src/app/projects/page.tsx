@@ -2,16 +2,20 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ViewTransition } from "react";
-import { categories, projects, site } from "@/data/site";
+import { site } from "@/data/site";
+import { categories, getProjects } from "@/lib/projects";
 import styles from "./projects.module.css";
 
 export const metadata: Metadata = {
   title: "Projects",
-  description: `Residential projects by ${site.fullName} in Uttar Pradesh.`,
+  description: `Commercial, healthcare and religious projects built by ${site.fullName}.`,
   alternates: { canonical: "/projects" },
 };
 
-export default function ProjectsPage() {
+export default async function ProjectsPage() {
+  const projects = await getProjects();
+  // Only categories that have projects get a filter chip.
+  const usedCategories = categories.filter((c) => projects.some((p) => p.category === c));
   return (
     <>
       <section className="pageHero">
@@ -22,8 +26,7 @@ export default function ProjectsPage() {
           <span className="eyebrow">Our portfolio</span>
           <h1 className="display h1">Projects</h1>
           <p className="lead">
-            {projects.length} featured developments across four verticals. Every one engineered and delivered by our own
-            teams.
+            Offices, hospitals and places of worship, each one engineered and delivered by our own teams.
           </p>
         </div>
       </section>
@@ -33,7 +36,7 @@ export default function ProjectsPage() {
           {/* Pure CSS filter: the checked radio hides non-matching cards via :has() */}
           <fieldset className={styles.filters}>
             <legend>Filter by category</legend>
-            {["All", ...categories].map((c) => (
+            {["All", ...usedCategories].map((c) => (
               <label key={c}>
                 <input type="radio" name="filter" value={c} defaultChecked={c === "All"} />
                 <span>{c}</span>
