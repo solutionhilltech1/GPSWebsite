@@ -1,5 +1,15 @@
 "use server";
 
+import nodemailer from "nodemailer";
+import { site } from "@/data/site";
+
+const mailer = nodemailer.createTransport({
+  host: process.env.EMAIL_HOST,
+  port: Number(process.env.EMAIL_PORT || 587),
+  secure: process.env.EMAIL_PORT === "465",
+  auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
+});
+
 export type EnquiryState = { ok: boolean; message: string } | null;
 
 const field = (form: FormData, key: string, max = 200) => String(form.get(key) ?? "").trim().slice(0, max);
@@ -21,8 +31,21 @@ export async function sendEnquiry(_prev: EnquiryState, form: FormData): Promise<
   if (enquiry.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(enquiry.email))
     return { ok: false, message: "That email doesn't look right." };
 
-  // ponytail: logs only. Send to email (e.g. Resend) or the client's CRM before launch.
-  console.log("New enquiry", enquiry);
+  try {
+    await mailer.sendMail({
+      from: process.env.EMAIL_FROM,
+      to: process.env.EMAIL_TO,
+      replyTo: enquiry.email || undefined,
+      subject: `New enquiry: ${enquiry.name.replace(/\s+/g, " ")}${enquiry.project ? ` (${enquiry.project})` : ""}`,
+      text: Object.entries(enquiry)
+        .map(([key, value]) => `${key}: ${value || "-"}`)
+        .join("\n"),
+    });
+  } catch (err) {
+    // Keep the lead in the server log so it can be recovered by hand.
+    console.error("Enquiry email failed", err, enquiry);
+    return { ok: false, message: `Sorry, we couldn't send that. Please call us on ${site.phone}.` };
+  }
 
   return { ok: true, message: `Thank you, ${enquiry.name}. Our team will call you within 24 hours.` };
 }

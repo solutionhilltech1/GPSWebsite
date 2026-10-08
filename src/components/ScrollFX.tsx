@@ -26,14 +26,58 @@ export default function ScrollFX() {
 
   useEffect(() => {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const lenis = new Lenis({ anchors: true });
+    const lenis = new Lenis({
+      anchors: true,
+      prevent: (node) => {
+        if (!(node instanceof HTMLElement)) return false;
+        return Boolean(
+          node.hasAttribute("data-lenis-prevent") ||
+          node.closest("[data-lenis-prevent]") ||
+          node.closest("[role='dialog']") ||
+          node.closest("[class*='modal']") ||
+          node.closest("[class*='lightbox']") ||
+          node.closest("[class*='backdrop']") ||
+          document.body.classList.contains("modal-open") ||
+          document.documentElement.classList.contains("modal-open")
+        );
+      },
+    });
+
+    (window as any).__lenis = lenis;
     lenis.on("scroll", ScrollTrigger.update);
     const tick = (time: number) => lenis.raf(time * 1000);
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
+
+    // Watch for any modal / dialog dynamically added to the DOM across the site
+    const checkModals = () => {
+      const hasModal = Boolean(
+        document.querySelector(
+          "[data-lenis-prevent], [role='dialog'], [class*='modalBackdrop'], [class*='lightboxBackdrop']"
+        )
+      );
+
+      if (hasModal) {
+        document.documentElement.classList.add("modal-open");
+        document.body.classList.add("modal-open");
+        lenis.stop();
+      } else {
+        document.documentElement.classList.remove("modal-open");
+        document.body.classList.remove("modal-open");
+        lenis.start();
+      }
+    };
+
+    const observer = new MutationObserver(checkModals);
+    observer.observe(document.body, { childList: true, subtree: true });
+
     return () => {
+      observer.disconnect();
+      document.documentElement.classList.remove("modal-open");
+      document.body.classList.remove("modal-open");
       gsap.ticker.remove(tick);
       lenis.destroy();
+      delete (window as any).__lenis;
     };
   }, []);
 

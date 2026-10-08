@@ -58,7 +58,10 @@ export default function Footer() {
 
       <div className={`container ${styles.legal}`}>
         <p>
-          © {site.fullName} · CIN {site.legal.cin}
+          © {site.fullName} · CIN {site.legal.cin} ·{" "}
+          <Link href="/admin" style={{ opacity: 0.65, textDecoration: "underline" }}>
+            HR Portal
+          </Link>
         </p>
         <p>
           Images are artistic impressions. Project details are subject to approvals. Refer to RERA registration
