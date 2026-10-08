@@ -65,7 +65,7 @@ export default function Home() {
       <section className={styles.split}>
         <div className={`${styles.splitImage} frame`} data-clip>
           <div className="media" data-speed="0.2">
-            <Image src={machinery.photos[0].src} alt={machinery.photos[0].alt} fill sizes="(max-width: 900px) 100vw, 50vw" />
+            <Image src={machinery.image.src} alt={machinery.image.alt} fill sizes="(max-width: 900px) 100vw, 50vw" />
           </div>
         </div>
         <div className={styles.splitText}>
@@ -86,9 +86,6 @@ export default function Home() {
               </li>
             ))}
           </ul>
-          <Link href="/machinery" className="btn" data-reveal>
-            See our machinery
-          </Link>
         </div>
       </section>
 

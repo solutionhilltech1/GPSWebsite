@@ -33,7 +33,6 @@ export const site = {
   nav: [
     { label: "Projects", href: "/projects" },
     { label: "Services", href: "/services" },
-    { label: "Machinery", href: "/machinery" },
     { label: "Gallery", href: "/gallery" },
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
@@ -242,16 +241,14 @@ export const pillars = [
   { title: "Customer-Centric Approach", text: "We fully respect your budget requirements and preferences." },
 ];
 
-// TODO(client): PLACEHOLDER fleet, based on site photos. Replace with the real machine list, counts and photos.
+// TODO(client): PLACEHOLDER fleet list and stock crane photo. Replace with the real machines, counts and photos.
 export const machinery = {
-  intro: "We own and run our own construction machinery, so work on site never waits on hired equipment.",
-  photos: [
-    { src: "/gallery/2.jpeg", alt: "GPS concrete mixer under a steel canopy on site" },
-    { src: "/gallery/1.jpeg", alt: "GPS tractors levelling a plot before construction" },
-  ],
+  intro: "We own and run our own heavy construction machinery, from cranes to earthmovers, so work on site never waits on hired equipment.",
+  image: { src: img("1599707254554-027aeb4deacd"), alt: "Tower crane lifting materials on a construction site" },
   fleet: [
-    { name: "Tractors & trolleys", text: "Site clearing, levelling and hauling material across the plot." },
+    { name: "Cranes", text: "Heavy lifting of steel, shuttering and materials to every floor." },
+    { name: "Earthmoving equipment", text: "Clearing, levelling and excavation, from an empty plot to dug footings." },
     { name: "Concrete mixers", text: "On-site mixing for footings, columns and slabs, batch by batch." },
-    { name: "Welding & fabrication", text: "Steel structures, sheds and canopies fabricated by our own crew." },
+    { name: "Tractors & trolleys", text: "Hauling sand, aggregate and steel across the site." },
   ],
 };
