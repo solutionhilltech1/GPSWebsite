@@ -376,7 +376,7 @@ export default function GalleryClient() {
                   <div className={styles.specsList}>
                     <div className={styles.specRow}>
                       <span className={styles.specLabel}>Location</span>
-                      <span className={styles.specValue}>Sector 54, Gurugram</span>
+                      <span className={styles.specValue}>{activePhoto.location}</span>
                     </div>
 
                     <div className={styles.specRow}>
@@ -403,7 +403,7 @@ export default function GalleryClient() {
 
                     <div className={styles.specRow}>
                       <span className={styles.specLabel}>Developer</span>
-                      <span className={styles.specValue}>GPS Prime Projects</span>
+                      <span className={styles.specValue}>{activePhoto.developer}</span>
                     </div>
                   </div>
                 </div>

@@ -6,6 +6,7 @@ import { genUploader } from "uploadthing/client";
 import type { GalleryRouter } from "@/app/api/uploadthing/route";
 import type { GalleryItem as PhotoItem } from "@/lib/gallery";
 import styles from "./admin.module.css";
+import { toast } from "react-toastify";
 
 const ut = genUploader<GalleryRouter>();
 
@@ -42,7 +43,6 @@ export default function AdminClient() {
   const [activeTab, setActiveTab] = useState<"library" | "upload">("library");
   const [data, setData] = useState<AdminData | null>(null);
   const [loading, setLoading] = useState(false);
-  const [toast, setToast] = useState<string | null>(null);
 
   // Filters
   const [searchQuery, setSearchQuery] = useState("");
@@ -54,6 +54,10 @@ export default function AdminClient() {
   const [editCaption, setEditCaption] = useState("");
   const [editCategory, setEditCategory] = useState("");
   const [editTags, setEditTags] = useState("");
+  const [editLocation, setEditLocation] = useState("");
+  const [editRecordedDate, setEditRecordedDate] = useState("");
+  const [editName, setEditName] = useState("");
+  const [editDeveloper, setEditDeveloper] = useState("");
   const [isSaving, setIsSaving] = useState(false);
 
   // Replace photo modal state
@@ -73,13 +77,6 @@ export default function AdminClient() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const replaceInputRef = useRef<HTMLInputElement>(null);
 
-  const showToast = useCallback((msg: string) => {
-    setToast(msg);
-    setTimeout(() => {
-      setToast((prev) => (prev === msg ? null : prev));
-    }, 4000);
-  }, []);
-
   // Fetch admin photos. A 401 means the session cookie is missing or expired.
   const loadData = useCallback(async () => {
     setLoading(true);
@@ -92,11 +89,11 @@ export default function AdminClient() {
       if (!json.success) throw new Error(json.error);
       setData(json);
     } catch (err) {
-      showToast(`Failed to load gallery items: ${(err as Error).message}`);
+      toast.error(`Failed to load gallery items: ${(err as Error).message}`);
     } finally {
       setLoading(false);
     }
-  }, [showToast]);
+  }, []);
 
   // The cookie is httpOnly, so ask the server whether we're logged in.
   useEffect(() => {
@@ -132,6 +129,10 @@ export default function AdminClient() {
     setEditCaption(photo.caption);
     setEditCategory(photo.category);
     setEditTags((photo.tags || []).join(", "));
+    setEditLocation(photo.location);
+    setEditRecordedDate(photo.recordedDate);
+    setEditName(photo.name);
+    setEditDeveloper(photo.developer);
   };
 
   // Save Edit Content
@@ -147,6 +148,10 @@ export default function AdminClient() {
         caption: editCaption,
         category: editCategory,
         tags: editTags,
+        location: editLocation,
+        recordedDate: editRecordedDate,
+        name: editName,
+        developer: editDeveloper,
       };
 
       const res = await fetch("/api/admin/gallery", {
@@ -157,14 +162,14 @@ export default function AdminClient() {
 
       const result = await res.json();
       if (result.success) {
-        showToast("Photo content updated successfully!");
+        toast.success("Photo content updated successfully!");
         setEditingPhoto(null);
         await loadData();
       } else {
-        showToast(result.error || "Failed to update content");
+        toast.error(result.error || "Failed to update content");
       }
     } catch {
-      showToast("Error updating photo content");
+      toast.error("Error updating photo content");
     } finally {
       setIsSaving(false);
     }
@@ -186,15 +191,15 @@ export default function AdminClient() {
 
       const result = await res.json();
       if (result.success) {
-        showToast(`Replaced photo "${replaceTarget.name}" with new image`);
+        toast.success(`Replaced photo "${replaceTarget.name}" with new image`);
         setReplaceTarget(null);
         setReplacementFile(null);
         await loadData();
       } else {
-        showToast(result.error || "Failed to replace photo");
+        toast.error(result.error || "Failed to replace photo");
       }
     } catch {
-      showToast("Error replacing photo");
+      toast.error("Error replacing photo");
     } finally {
       setIsReplacing(false);
     }
@@ -211,13 +216,13 @@ export default function AdminClient() {
       });
       const result = await res.json();
       if (result.success) {
-        showToast(`Photo "${photo.name}" deleted`);
+        toast.success(`Photo "${photo.name}" deleted`);
         await loadData();
       } else {
-        showToast(result.error || "Failed to delete");
+        toast.error(result.error || "Failed to delete");
       }
     } catch {
-      showToast("Error deleting photo");
+      toast.error("Error deleting photo");
     }
   };
 
@@ -225,7 +230,7 @@ export default function AdminClient() {
   const handleUploadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!uploadFiles || uploadFiles.length === 0) {
-      showToast("Please choose at least one photo to upload");
+      toast.warn("Please choose at least one photo to upload");
       return;
     }
 
@@ -246,7 +251,7 @@ export default function AdminClient() {
 
       const result = await res.json();
       if (result.success) {
-        showToast(`Successfully added ${result.uploaded} photo(s) to gallery!`);
+        toast.success(`Successfully added ${result.uploaded} photo(s) to gallery!`);
         // Reset upload form
         setUploadFiles(null);
         setUploadTitle("");
@@ -256,10 +261,10 @@ export default function AdminClient() {
         setActiveTab("library");
         await loadData();
       } else {
-        showToast(result.error || "Upload failed");
+        toast.error(result.error || "Upload failed");
       }
     } catch (err) {
-      showToast(err instanceof Error ? err.message : "Network error during upload");
+      toast.error(err instanceof Error ? err.message : "Network error during upload");
     } finally {
       setIsUploading(false);
     }
@@ -748,6 +753,51 @@ export default function AdminClient() {
                     />
                   </div>
 
+                  <div className={styles.formGroup}>
+                    <label className={styles.formLabel}>Location</label>
+                    <input
+                      type="text"
+                      className={styles.formInput}
+                      value={editLocation}
+                      onChange={(e) => setEditLocation(e.target.value)}
+                      maxLength={120}
+                    />
+                  </div>
+
+                  <div className={styles.formGroup}>
+                    <label className={styles.formLabel}>Date Recorded</label>
+                    <input
+                      type="date"
+                      className={styles.formInput}
+                      value={editRecordedDate}
+                      onChange={(e) => setEditRecordedDate(e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  <div className={styles.formGroup}>
+                    <label className={styles.formLabel}>File Reference</label>
+                    <input
+                      type="text"
+                      className={styles.formInput}
+                      value={editName}
+                      onChange={(e) => setEditName(e.target.value)}
+                      maxLength={200}
+                      required
+                    />
+                  </div>
+
+                  <div className={styles.formGroup}>
+                    <label className={styles.formLabel}>Developer</label>
+                    <input
+                      type="text"
+                      className={styles.formInput}
+                      value={editDeveloper}
+                      onChange={(e) => setEditDeveloper(e.target.value)}
+                      maxLength={120}
+                    />
+                  </div>
+
                 </div>
 
                 <div className={styles.modalFooter}>
@@ -824,9 +874,6 @@ export default function AdminClient() {
             </div>
           </div>
         )}
-
-        {/* Toast Notification */}
-        {toast && <div className={styles.toast}>{toast}</div>}
       </div>
     </main>
   );

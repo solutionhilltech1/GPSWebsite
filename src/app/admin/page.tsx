@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import AdminClient from "./AdminClient";
 
 export const metadata: Metadata = {
@@ -11,5 +13,10 @@ export const metadata: Metadata = {
 };
 
 export default function AdminPage() {
-  return <AdminClient />;
+  return (
+    <>
+      <AdminClient />
+      <ToastContainer position="bottom-right" theme="dark" />
+    </>
+  );
 }

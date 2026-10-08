@@ -672,29 +672,3 @@
   gap: 14px;
 }
 
-/* Toast message */
-.toast {
-  position: fixed;
-  bottom: 32px;
-  right: 32px;
-  z-index: 2000;
-  background: var(--ink);
-  color: var(--paper);
-  padding: 16px 24px;
-  border-left: 4px solid var(--gold);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
-  font-size: 0.85rem;
-  font-weight: 600;
-  animation: slideUp 0.3s var(--ease);
-}
-
-@keyframes slideUp {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}

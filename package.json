@@ -16,6 +16,7 @@
     "nodemailer": "^10.0.16",
     "react": "19.3.0",
     "react-dom": "19.3.0",
+    "react-toastify": "^11.1.0",
     "uploadthing": "^7.7.4"
   },
   "devDependencies": {

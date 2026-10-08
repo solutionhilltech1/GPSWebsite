@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb";
 import { UTApi } from "uploadthing/server";
 import { isAdmin } from "@/lib/auth";
-import { photos, tagList, text, toItem } from "@/lib/gallery";
+import { DEFAULT_DEVELOPER, DEFAULT_LOCATION, dateOnly, photos, tagList, text, toItem } from "@/lib/gallery";
 
 const utapi = new UTApi();
 const unauthorized = () => Response.json({ error: "Please log in again." }, { status: 401 });
@@ -71,6 +71,10 @@ export async function PUT(request: Request) {
   if (!existing) return Response.json({ error: "Photo not found." }, { status: 404 });
 
   const file = uploaded(body.file);
+  const recordedAt = dateOnly(body.recordedDate);
+  // Keep the file extension so Format & Size still reads correctly after a rename.
+  const ext = existing.name.match(/\.[^.]+$/)?.[0] ?? "";
+  const name = text(body.name, 200);
   await collection.updateOne(
     { _id },
     {
@@ -80,6 +84,10 @@ export async function PUT(request: Request) {
         ...(body.caption !== undefined && { caption: text(body.caption, 600) }),
         ...(body.category !== undefined && { category: text(body.category, 60) || existing.category }),
         ...(body.tags !== undefined && { tags: tagList(body.tags) }),
+        ...(!file && name && { name: name.toLowerCase().endsWith(ext.toLowerCase()) ? name : name + ext }),
+        ...(body.location !== undefined && { location: text(body.location, 120) || DEFAULT_LOCATION }),
+        ...(body.developer !== undefined && { developer: text(body.developer, 120) || DEFAULT_DEVELOPER }),
+        ...(recordedAt && { recordedAt }),
         updatedAt: new Date(),
       },
     },

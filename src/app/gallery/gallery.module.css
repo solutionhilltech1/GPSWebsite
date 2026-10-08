@@ -526,6 +526,7 @@
   color: #ffffff;
   font-weight: 600;
   text-align: right;
+  overflow-wrap: anywhere;
 }
 
 /* Nav arrows */
