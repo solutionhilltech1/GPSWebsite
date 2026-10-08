@@ -8,6 +8,7 @@ import styles from "./projects.module.css";
 export const metadata: Metadata = {
   title: "Projects",
   description: `Residential projects by ${site.fullName} in Uttar Pradesh.`,
+  alternates: { canonical: "/projects" },
 };
 
 export default function ProjectsPage() {

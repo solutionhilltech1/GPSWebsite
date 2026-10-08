@@ -6,6 +6,7 @@ import GalleryClient from "./GalleryClient";
 export const metadata: Metadata = {
   title: "Gallery",
   description: `Visual photographic archive of projects and site construction by ${site.fullName}.`,
+  alternates: { canonical: "/gallery" },
 };
 
 export default function GalleryPage() {

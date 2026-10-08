@@ -1,7 +1,10 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { projects, site, stats } from "@/data/site";
 import styles from "./page.module.css";
+
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 const heroProject = projects[0];
 

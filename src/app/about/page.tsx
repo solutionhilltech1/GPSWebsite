@@ -8,6 +8,7 @@ import styles from "./about.module.css";
 export const metadata: Metadata = {
   title: "About",
   description: `${site.fullName}: residential construction in ${site.offices[0]} since ${site.legal.incorporated}.`,
+  alternates: { canonical: "/about" },
 };
 
 export default function AboutPage() {

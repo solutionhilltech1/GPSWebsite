@@ -7,15 +7,20 @@ export const site = {
   fullName: "GPS Projects Private Limited",
   url: "https://gps-one-opal.vercel.app",
   tagline: "Building a Better Tomorrow",
+  description:
+    "GPS Projects Private Limited develops and constructs residential buildings in Etah, Uttar Pradesh. Established 2026.",
   // TODO(client): real phone + email. Public records only show a masked Gmail address and no phone.
   phone: "+91 98100 00000",
   email: "hello@gpsprimeprojects.in",
   address: "House No. 138, Pipal Adda, Etah, Uttar Pradesh 207001",
+  // Same address, split for structured data (schema.org PostalAddress).
+  postal: { street: "House No. 138, Pipal Adda", city: "Etah", region: "Uttar Pradesh", code: "207001" },
   offices: ["Etah, Uttar Pradesh"],
   // Public company record (MCA, via Tracxn)
   legal: {
     cin: "U41001UW2026PTC258583",
     incorporated: "14 September 2026",
+    incorporatedISO: "2026-09-14",
     registrar: "ROC Uttar Pradesh II",
   },
   directors: ["Chirag Rajput", "Rahul Verma"],

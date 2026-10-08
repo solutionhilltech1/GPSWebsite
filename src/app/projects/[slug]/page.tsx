@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ViewTransition } from "react";
 import EnquiryForm from "@/components/EnquiryForm";
+import JsonLd from "@/components/JsonLd";
 import { getProject, projects, site } from "@/data/site";
 import styles from "./project.module.css";
 
@@ -13,7 +14,13 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps<"/projects/[slug]">): Promise<Metadata> {
   const project = getProject((await params).slug);
-  return project ? { title: project.name, description: `${project.tagline}. ${project.location}.` } : {};
+  return project
+    ? {
+        title: project.name,
+        description: `${project.tagline}. ${project.location}.`,
+        alternates: { canonical: `/projects/${project.slug}` },
+      }
+    : {};
 }
 
 export default async function ProjectPage({ params }: PageProps<"/projects/[slug]">) {
@@ -25,6 +32,16 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
 
   return (
     <>
+      <JsonLd
+        data={{
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: site.url },
+            { "@type": "ListItem", position: 2, name: "Projects", item: `${site.url}/projects` },
+            { "@type": "ListItem", position: 3, name: project.name, item: `${site.url}/projects/${project.slug}` },
+          ],
+        }}
+      />
       <section className={`pageHero ${styles.hero}`}>
         <ViewTransition name={`project-${project.slug}`} share="morph" default="none">
           <div className="media" data-speed="0.3">
