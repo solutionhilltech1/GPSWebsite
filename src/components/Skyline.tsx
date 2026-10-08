@@ -33,6 +33,7 @@ export function skyline(seed: number, minH: number, maxH: number, ground: number
   return { path: parts.join(""), windows };
 }
 
+/** Tower crane; the trolley runs along the jib and the hook swings under it (CSS). */
 function Crane() {
   return (
     <g>
@@ -40,36 +41,61 @@ function Crane() {
       <rect x="960" y="90" width="430" height="7" />
       <rect x="930" y="97" width="60" height="22" />
       <path d="M1084 90 L1084 50 L1300 93 M1084 50 L960 93" fill="none" strokeWidth="2" />
-      <line x1="1330" y1="97" x2="1330" y2="230" strokeWidth="1.5" />
-      <rect x="1318" y="230" width="24" height="12" />
+      <g className={styles.trolley}>
+        <g className={styles.hook}>
+          <line x1="1330" y1="97" x2="1330" y2="230" strokeWidth="1.5" />
+          <rect x="1318" y="230" width="24" height="12" />
+        </g>
+      </g>
+      <circle className={styles.beacon} cx="1084" cy="48" r="4" />
+      <circle className={styles.beacon} cx="1388" cy="91" r="3.5" />
     </g>
   );
 }
 
 const box = "0 0 1600 800";
+const slice = { viewBox: box, preserveAspectRatio: "xMidYMax slice", "aria-hidden": true } as const;
 
-/** Layered parallax skyline. `hero` makes it a full-screen page opener. */
-export default function Skyline({ children, hero = false }: { children: React.ReactNode; hero?: boolean }) {
+/**
+ * Layered parallax skyline behind normal-flow content. Layers drift at different speeds
+ * (ScrollFX data-speed). Stars and windows are split into a few whole <svg> groups that fade
+ * as units, so the browser composites them instead of repainting SVG every frame; ScrollFX
+ * adds .live only while the section is on screen, so nothing animates offscreen.
+ */
+export default function Skyline({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   const near = skyline(37, 60, 230, 600);
+  const r = random(5);
+  const stars = Array.from({ length: 90 }, () => ({ x: r() * 1600, y: r() * 420, s: 0.6 + r() * 1.4 }));
   return (
-    <section className={`${styles.skyline} ${hero ? styles.hero : ""}`}>
-      <div className={styles.sun} data-speed="0.8" />
-      <svg className={`${styles.layer} ${styles.far}`} data-speed="0.5" viewBox={box} preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <section className={`${styles.skyline} ${className}`} data-live>
+      <div className={styles.stars} data-speed="0.6">
+        {[0, 1].map((g) => (
+          <svg key={g} viewBox="0 0 1600 420" preserveAspectRatio="xMidYMin slice" aria-hidden="true">
+            {stars.map((s, i) => i % 2 === g && <circle key={i} cx={s.x} cy={s.y} r={s.s} />)}
+          </svg>
+        ))}
+      </div>
+      <div className={styles.sun} data-speed="0.45" />
+      <svg className={`${styles.layer} ${styles.far}`} data-speed="0.35" {...slice}>
         <path d={skyline(11, 160, 420, 600).path} />
       </svg>
-      <svg className={`${styles.layer} ${styles.mid}`} data-speed="0.28" viewBox={box} preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+      <div className={styles.haze} />
+      <svg className={`${styles.layer} ${styles.mid}`} data-speed="0.2" {...slice}>
         <Crane />
         <path d={skyline(23, 100, 320, 600).path} />
       </svg>
-      <div className={`container ${styles.copy}`} data-speed="0.4">
-        {children}
-      </div>
-      <svg className={`${styles.layer} ${styles.near}`} data-speed="0.06" viewBox={box} preserveAspectRatio="xMidYMax slice" aria-hidden="true">
-        <path d={near.path} />
-        {near.windows.map((w, i) => (
-          <rect key={i} className={styles.window} x={w.x} y={w.y} width={w.w} height={w.h} />
+      <div className={`${styles.layer} ${styles.near}`} data-speed="0.05">
+        <svg {...slice}>
+          <rect x="-20" y="610" width="1640" height="200" />
+          <path d={near.path} />
+        </svg>
+        {[0, 1, 2].map((g) => (
+          <svg key={g} className={styles.windows} {...slice}>
+            {near.windows.map((w, i) => i % 3 === g && <rect key={i} x={w.x} y={w.y} width={w.w} height={w.h} />)}
+          </svg>
         ))}
-      </svg>
+      </div>
+      <div className={`container ${styles.copy}`}>{children}</div>
     </section>
   );
 }

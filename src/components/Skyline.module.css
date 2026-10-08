@@ -1,69 +1,177 @@
+/* Dusk over the city: content sits in normal flow on top, the scene fills the section behind it. */
 .skyline {
   position: relative;
-  height: 130vh;
-  min-height: 760px;
+  isolation: isolate;
   overflow: hidden;
   color: var(--paper);
-  background: linear-gradient(180deg, #12110e 0%, #2a2219 38%, #6b5034 66%, #c39462 88%, #e2bb84 100%);
+  padding: clamp(96px, 14vw, 180px) 0 clamp(280px, 46svh, 460px);
+  background: linear-gradient(180deg, #0d0c0a 0%, #1b1813 28%, #3f3123 58%, #9a6e45 84%, #e2bb84 100%);
+}
+
+/* svh, not vh: mobile URL-bar show/hide must not resize the scene mid-scroll. */
+.skyline > :not(.copy) {
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.stars {
+  inset: 0 0 auto;
+  height: min(60%, 100svh);
+  fill: #f3e6cc;
+}
+
+.stars svg,
+.near svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .sun {
-  position: absolute;
   left: 50%;
-  top: 46%;
-  width: min(60vw, 640px);
+  bottom: 4svh;
+  width: min(80vw, 820px);
   aspect-ratio: 1;
-  margin-left: max(-30vw, -320px);
+  translate: -50% 0;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 214, 160, 0.9) 0%, rgba(232, 176, 110, 0.35) 40%, transparent 70%);
+  background: radial-gradient(circle, rgba(255, 214, 160, 0.85) 0%, rgba(232, 176, 110, 0.32) 38%, transparent 70%);
 }
 
+/* Each layer hangs below the section so its parallax drift never lifts its base into view. */
 .layer {
-  position: absolute;
   left: 0;
   width: 100%;
-  bottom: -18%;
-  height: 92%;
+  bottom: -22svh;
+  height: 100svh;
 }
 
 .far {
   fill: #4b3c2d;
+  opacity: 0.85;
+}
+
+.haze {
+  inset: auto 0 0;
+  height: 60svh;
+  background: linear-gradient(180deg, transparent, rgba(226, 187, 132, 0.18) 60%, transparent);
 }
 
 .mid {
   fill: #2b241c;
   stroke: #2b241c;
+  bottom: -12svh;
+  height: 86svh;
 }
 
 .near {
   fill: var(--ink);
-  height: 80%;
+  bottom: -5svh;
+  height: 62svh;
 }
 
-.window {
+.near .windows {
   fill: var(--gold-light);
   opacity: 0.75;
 }
 
+.beacon {
+  fill: #ff5a3c;
+}
+
 .copy {
-  position: absolute;
-  inset: 16% 0 auto;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 24px;
+  position: relative;
 }
 
-.hero {
-  height: 100svh;
-  min-height: 640px;
-}
-
-.hero .copy {
-  inset: 22% 0 auto;
+.copy :global(.eyebrow) {
+  color: var(--muted-light);
 }
 
 .copy :global(.lead) {
   color: rgba(243, 239, 231, 0.78);
+}
+
+/*
+ * Motion only while on screen (.live from ScrollFX, never set under reduced motion).
+ * Star/window groups fade whole <svg>s: opacity on an HTML-level element is composited, no repaint.
+ */
+:global(.live) .stars svg {
+  will-change: opacity;
+  animation: twinkle 4s ease-in-out infinite;
+}
+
+:global(.live) .stars svg:last-child {
+  animation-delay: -2s;
+}
+
+:global(.live) .near .windows {
+  will-change: opacity;
+  animation: flicker 9s steps(1) infinite;
+}
+
+:global(.live) .near .windows:nth-of-type(3) {
+  animation-delay: -3s;
+}
+
+:global(.live) .near .windows:nth-of-type(4) {
+  animation-delay: -6s;
+}
+
+/* The crane repaints its layer while it moves, so it only runs where there's GPU headroom. */
+@media (min-width: 900px) {
+  :global(.live) .beacon {
+    animation: blink 1.4s steps(1) infinite;
+  }
+
+  :global(.live) .trolley {
+    animation: trolley 14s ease-in-out infinite alternate;
+  }
+
+  :global(.live) .hook {
+    transform-box: view-box;
+    transform-origin: 1330px 97px;
+    animation: swing 3.2s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes twinkle {
+  50% {
+    opacity: 0.2;
+  }
+}
+
+@keyframes flicker {
+  0%,
+  100% {
+    opacity: 0.8;
+  }
+  45% {
+    opacity: 0.08;
+  }
+  70% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.15;
+  }
+}
+
+@keyframes trolley {
+  to {
+    transform: translateX(-260px);
+  }
+}
+
+@keyframes swing {
+  from {
+    transform: rotate(-4deg);
+  }
+  to {
+    transform: rotate(4deg);
+  }
 }

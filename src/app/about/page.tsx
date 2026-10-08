@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Words from "@/components/Words";
-import { pillars, site, stats, timeline } from "@/data/site";
+import { about, pillars, site, stats, timeline } from "@/data/site";
 import styles from "./about.module.css";
 
 export const metadata: Metadata = {
   title: "About",
-  description: `${site.fullName}: residential construction in ${site.offices[0]} since ${site.legal.incorporated}.`,
+  description: `${site.fullName}: construction and infrastructure development in ${site.offices[0]} since ${site.legal.incorporated}.`,
   alternates: { canonical: "/about" },
 };
 
@@ -30,10 +30,10 @@ export default function AboutPage() {
 
       <section className="section">
         <div className="container">
-          <Words
-            className={`display ${styles.manifesto}`}
-            text="GPS Projects was founded in Etah, Uttar Pradesh in 2026 with one rule: never hand over a home we wouldn't live in ourselves. That rule signs off every building we deliver."
-          />
+          <Words className={`display ${styles.manifesto}`} text={about.intro} />
+          <p className={`lead ${styles.intro}`} data-reveal>
+            {about.text}
+          </p>
         </div>
       </section>
 
@@ -46,13 +46,11 @@ export default function AboutPage() {
         <div className={styles.duoText}>
           <div data-reveal>
             <span className="eyebrow">Vision</span>
-            <p className="display h3">To shape skylines that make cities more liveable, not just taller.</p>
+            <p className="display h3">{about.vision}</p>
           </div>
           <div data-reveal>
             <span className="eyebrow">Mission</span>
-            <p className="display h3">
-              Design with intent, engineer without shortcuts, and deliver every promise on the date we made it.
-            </p>
+            <p className="display h3">{about.mission}</p>
           </div>
         </div>
       </section>
@@ -73,7 +71,7 @@ export default function AboutPage() {
       <section className="section">
         <div className="container">
           <span className="eyebrow" data-reveal>
-            What we stand for
+            Why choose us
           </span>
           <div className={styles.pillars}>
             {pillars.map((p, i) => (

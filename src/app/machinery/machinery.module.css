@@ -1,0 +1,65 @@
+.manifesto {
+  font-size: clamp(2rem, 4.6vw, 4.2rem);
+  line-height: 1.12;
+  max-width: 24ch;
+}
+
+.fleet {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-top: 72px;
+}
+
+.fleet li {
+  border-top: 1px solid var(--line);
+  padding-top: 24px;
+}
+
+.fleet span {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+}
+
+.fleet h2 {
+  margin: 12px 0;
+}
+
+.fleet p {
+  color: var(--muted);
+}
+
+.photos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.photo {
+  min-height: 70vh;
+}
+
+.cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.cta p {
+  max-width: 28ch;
+  line-height: 1.2;
+}
+
+@media (max-width: 900px) {
+  .fleet,
+  .photos {
+    grid-template-columns: 1fr;
+  }
+
+  .photo {
+    min-height: 56vh;
+  }
+}

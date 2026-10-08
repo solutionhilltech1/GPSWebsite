@@ -8,7 +8,7 @@ export const site = {
   url: "https://gps-one-opal.vercel.app",
   tagline: "Building a Better Tomorrow",
   description:
-    "GPS Projects Private Limited develops and constructs residential buildings in Etah, Uttar Pradesh. Established 2026.",
+    "GPS Projects Private Limited is a construction and infrastructure development company in Etah, Uttar Pradesh, delivering residential, commercial and industrial projects. Established 2026.",
   // TODO(client): real phone + email. Public records only show a masked Gmail address and no phone.
   phone: "+91 98100 00000",
   email: "hello@gpsprimeprojects.in",
@@ -32,6 +32,8 @@ export const site = {
   ],
   nav: [
     { label: "Projects", href: "/projects" },
+    { label: "Services", href: "/services" },
+    { label: "Machinery", href: "/machinery" },
     { label: "Gallery", href: "/gallery" },
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
@@ -49,7 +51,7 @@ export const site = {
 export const stats = [
   { value: "2026", label: "Established" },
   { value: "Etah", label: "Uttar Pradesh" },
-  { value: "Residential", label: "Building construction" },
+  { value: "Construction", label: "& infrastructure" },
 ];
 
 export const categories = ["Residential", "Commercial", "Retail", "Hospitality"] as const;
@@ -198,12 +200,58 @@ export const getProject = (slug: string) => projects.find((p) => p.slug === slug
 
 export const timeline = [
   { year: "2026", title: "Company incorporated", text: "GPS Projects Private Limited registered with ROC Uttar Pradesh II on 14 September 2026." },
-  { year: "Today", title: "Building in Uttar Pradesh", text: "Developing and constructing residential buildings from our base in Etah." },
+  { year: "Today", title: "Building in Uttar Pradesh", text: "Delivering residential, commercial and industrial projects from our base in Etah." },
 ];
 
-export const pillars = [
-  { title: "Hands-on construction", text: "We build what we develop, so quality is controlled on site, not on paper." },
-  { title: "Homes first", text: "Residential buildings are our focus: practical layouts, good light, honest materials." },
-  { title: "Transparent dealings", text: "A registered private limited company with clear paperwork at every step." },
-  { title: "Rooted in Uttar Pradesh", text: "Based in Etah and building for the neighbourhoods we know best." },
+// Client copy (Oct 2026).
+export const about = {
+  intro: "Welcome to GPS Projects Private Limited. We are an emerging and progressive construction and infrastructure development company.",
+  text: "Our goal is to deliver residential, commercial, and industrial projects on time using modern technology, superior engineering, and high quality. As a new-generation company, we believe in innovative ideas and working with transparency.",
+  vision: "To be one of India's most trusted companies in the construction industry, driven by our quality and integrity.",
+  mission: "To create projects that set an example for generations to come, using environmentally friendly and modern technologies.",
+};
+
+export const services = [
+  {
+    title: "Civil Construction",
+    text: "Robust construction of residential apartments, villas, and commercial buildings.",
+    scope: ["Residential apartments", "Villas", "Commercial buildings"],
+  },
+  {
+    title: "Infrastructure Projects",
+    text: "Development of roads, bridges, and industrial complexes.",
+    scope: ["Roads", "Bridges", "Industrial complexes"],
+  },
+  {
+    title: "Interior and Architectural Design",
+    text: "Modern and utility-based space design.",
+    scope: ["Architectural design", "Interior design", "Space planning"],
+  },
+  {
+    title: "Project Management",
+    text: "Complete planning and supervision from inception to project handover.",
+    scope: ["Planning", "Site supervision", "Handover"],
+  },
 ];
+
+// "Why choose us"
+export const pillars = [
+  { title: "On-Time Delivery", text: "We are committed to completing projects within the stipulated timeframe." },
+  { title: "No Compromise on Quality", text: "Only premium and tested materials are used in construction." },
+  { title: "Experienced Team", text: "We have an excellent team of skilled engineers, architects, and project managers." },
+  { title: "Customer-Centric Approach", text: "We fully respect your budget requirements and preferences." },
+];
+
+// TODO(client): PLACEHOLDER fleet, based on site photos. Replace with the real machine list, counts and photos.
+export const machinery = {
+  intro: "We own and run our own construction machinery, so work on site never waits on hired equipment.",
+  photos: [
+    { src: "/gallery/2.jpeg", alt: "GPS concrete mixer under a steel canopy on site" },
+    { src: "/gallery/1.jpeg", alt: "GPS tractors levelling a plot before construction" },
+  ],
+  fleet: [
+    { name: "Tractors & trolleys", text: "Site clearing, levelling and hauling material across the plot." },
+    { name: "Concrete mixers", text: "On-site mixing for footings, columns and slabs, batch by batch." },
+    { name: "Welding & fabrication", text: "Steel structures, sheds and canopies fabricated by our own crew." },
+  ],
+};

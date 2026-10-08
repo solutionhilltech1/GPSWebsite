@@ -79,6 +79,8 @@
 
 .copy h1 {
   color: var(--concrete);
+  font-size: clamp(2.6rem, 6vw, 5.8rem);
+  max-width: 13ch;
 }
 
 .copy .lead {
@@ -227,7 +229,7 @@
   }
 
   .copy h1 {
-    font-size: clamp(2.6rem, 11vw, 4rem);
+    font-size: clamp(2.2rem, 9.4vw, 3.4rem);
   }
 
   .copy .lead {
@@ -242,5 +244,174 @@
   .facts li {
     flex-direction: column;
     gap: 0;
+  }
+}
+
+/* ---------- 2. Machinery ---------- */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+}
+
+.splitImage {
+  min-height: 480px;
+}
+
+.splitText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 24px;
+  padding: clamp(56px, 8vw, 120px) var(--gutter);
+  background: var(--stone);
+}
+
+.fleet {
+  list-style: none;
+  display: grid;
+  gap: 16px;
+  width: 100%;
+  max-width: 52ch;
+  margin: 8px 0;
+}
+
+.fleet li {
+  display: grid;
+  gap: 2px;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+  color: var(--muted);
+}
+
+.fleet b {
+  color: var(--ink);
+}
+
+/* ---------- 3. About ---------- */
+.manifesto {
+  margin-top: 24px;
+  font-size: clamp(2rem, 4.6vw, 4.2rem);
+  line-height: 1.12;
+  max-width: 24ch;
+}
+
+.aboutRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-top: 48px;
+}
+
+/* ---------- 4/5. Services + why choose us ---------- */
+.cards {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  margin: 48px 0;
+}
+
+.cards li {
+  border-top: 1px solid var(--line);
+  padding-top: 24px;
+}
+
+:global(.dark) .cards li {
+  border-color: var(--line-light);
+}
+
+.cards span {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+}
+
+.cards h3 {
+  margin: 12px 0;
+}
+
+.cards p {
+  color: var(--muted);
+}
+
+:global(.dark) .cards p {
+  color: var(--muted-light);
+}
+
+/* Frosted cards keep the copy readable over any part of the skyline. */
+.skyTitle {
+  margin-top: 20px;
+  max-width: 14ch;
+}
+
+.glass {
+  gap: 20px;
+}
+
+.glass li {
+  padding: 28px 24px 32px;
+  border: 1px solid rgba(220, 188, 130, 0.22);
+  border-top: 2px solid var(--gold);
+  background: rgba(16, 15, 13, 0.62);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+  backdrop-filter: blur(14px) saturate(1.3);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  transition: translate 0.5s var(--ease), border-color 0.5s var(--ease), background 0.5s var(--ease);
+}
+
+/* Live backdrop blur over moving layers is too heavy for phones: solid glass instead. */
+@media (max-width: 900px) {
+  .glass li {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: rgba(16, 15, 13, 0.84);
+  }
+}
+
+.glass li:hover {
+  translate: 0 -8px;
+  border-color: rgba(220, 188, 130, 0.5);
+  background: rgba(16, 15, 13, 0.74);
+}
+
+.glass span {
+  color: var(--gold-light);
+}
+
+.glass p {
+  color: rgba(243, 239, 231, 0.8);
+}
+
+/* ---------- 6. Vision + mission ---------- */
+.vm {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+}
+
+.vm p {
+  margin-top: 16px;
+  line-height: 1.2;
+  max-width: 24ch;
+}
+
+@media (max-width: 900px) {
+  .split,
+  .vm {
+    grid-template-columns: 1fr;
+  }
+
+  .cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .cards {
+    grid-template-columns: 1fr;
   }
 }

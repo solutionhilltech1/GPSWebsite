@@ -19,6 +19,7 @@ gsap.registerPlugin(ScrollTrigger);
  *   data-horizontal    pinned section; its [data-track] slides sideways inside its parent rail
  *                      (desktop only, mobile keeps the rail's native swipe + snap)
  *   data-draw          line that grows with scroll (timeline)
+ *   data-live          gets .live while on screen, so CSS loops inside it pause offscreen
  * Reduced motion: none of it runs and the CSS initial states don't apply.
  */
 export default function ScrollFX() {
@@ -107,6 +108,11 @@ export default function ScrollFX() {
             .fromTo(q("[data-roof-caption]"), { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.25 }, 0.85)
             .to({}, { duration: 0.2 }); // hold on the full photo before the next section
         });
+
+        // Decorative CSS loops (Skyline) only run while their section is on screen.
+        all("[data-live]").forEach((el) =>
+          ScrollTrigger.create({ trigger: el, start: "top bottom", end: "bottom top", toggleClass: "live" }),
+        );
 
         if (desktop) {
           all("[data-horizontal]").forEach((section) => {

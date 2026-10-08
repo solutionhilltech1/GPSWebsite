@@ -4,6 +4,10 @@
   max-width: 24ch;
 }
 
+.intro {
+  margin-top: 40px;
+}
+
 .duo {
   display: grid;
   grid-template-columns: 1fr 1fr;
