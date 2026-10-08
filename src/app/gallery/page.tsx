@@ -19,7 +19,7 @@ export default function GalleryPage() {
           <span className="eyebrow">Visual Archive</span>
           <h1 className="display h1">Project Gallery</h1>
           <p className="lead">
-            Live photographic documentation of site engineering, progress, and delivered architecture across Gurugram.
+            Live photographic documentation of site engineering, progress, and delivered architecture across our sites.
           </p>
         </div>
       </section>

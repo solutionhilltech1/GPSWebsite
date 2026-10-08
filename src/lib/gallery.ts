@@ -37,8 +37,8 @@ const formatBytes = (bytes: number) => {
   return `${parseFloat((bytes / 1024 ** i).toFixed(1))} ${["B", "KB", "MB", "GB"][i]}`;
 };
 
-export const DEFAULT_LOCATION = "Sector 54, Gurugram";
-export const DEFAULT_DEVELOPER = "GPS Prime Projects";
+export const DEFAULT_LOCATION = "Etah, Uttar Pradesh";
+export const DEFAULT_DEVELOPER = "GPS Projects Private Limited";
 
 // Dates are shown and edited as Indian calendar days.
 const day = (d: Date, opts: Intl.DateTimeFormatOptions, locale = "en-IN") =>

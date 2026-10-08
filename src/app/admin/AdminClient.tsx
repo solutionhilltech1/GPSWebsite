@@ -330,7 +330,7 @@ export default function AdminClient() {
             <div>
               <h1 className={styles.authTitle}>HR & Media Portal</h1>
               <p className={styles.authSubtitle}>
-                GPS Prime Projects Management Access. Manage gallery photography, upload site updates, and edit content.
+                GPS Projects Management Access. Manage gallery photography, upload site updates, and edit content.
               </p>
             </div>
 
@@ -633,7 +633,7 @@ export default function AdminClient() {
                   <label className={styles.formLabel}>Tags (comma separated)</label>
                   <input
                     type="text"
-                    placeholder="e.g. Sector 54, Concrete, Superstructure, Meridian"
+                    placeholder="e.g. Etah, Concrete, Superstructure, Meridian"
                     className={styles.formInput}
                     value={uploadTags}
                     onChange={(e) => setUploadTags(e.target.value)}

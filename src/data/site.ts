@@ -4,20 +4,21 @@ const img = (id: string) => `https://images.unsplash.com/photo-${id}?w=2400&q=80
 
 export const site = {
   name: "GPS",
-  fullName: "GPS Prime Projects Pvt. Ltd.",
+  fullName: "GPS Projects Private Limited",
+  url: "https://gps-one-opal.vercel.app",
   tagline: "Building a Better Tomorrow",
   // TODO(client): real phone + email. Public records only show a masked Gmail address and no phone.
   phone: "+91 98100 00000",
   email: "hello@gpsprimeprojects.in",
-  address: "Plot No. 578, Block G, Sun City, Sector 54, Gurugram, Haryana 122001",
-  offices: ["Gurugram, Haryana"],
+  address: "House No. 138, Pipal Adda, Etah, Uttar Pradesh 207001",
+  offices: ["Etah, Uttar Pradesh"],
   // Public company record (MCA, via Tracxn)
   legal: {
-    cin: "U70103HR2018PTC073094",
-    incorporated: "16 March 2018",
-    registrar: "ROC Delhi",
+    cin: "U41001UW2026PTC258583",
+    incorporated: "14 September 2026",
+    registrar: "ROC Uttar Pradesh II",
   },
-  directors: ["Gaurav Dwivedi", "Santosh Kumar Dwiwedi"],
+  directors: ["Chirag Rajput", "Rahul Verma"],
   socials: [
     { label: "Instagram", href: "https://instagram.com" },
     { label: "LinkedIn", href: "https://linkedin.com" },
@@ -41,15 +42,15 @@ export const site = {
 };
 
 export const stats = [
-  { value: "2018", label: "Established" },
-  { value: "Gurugram", label: "Haryana" },
+  { value: "2026", label: "Established" },
+  { value: "Etah", label: "Uttar Pradesh" },
   { value: "Residential", label: "Building construction" },
 ];
 
 export const categories = ["Residential", "Commercial", "Retail", "Hospitality"] as const;
 export type Category = (typeof categories)[number];
 
-// TODO(client): PLACEHOLDER projects. Replace with GPS Prime's real projects, photos and RERA numbers.
+// TODO(client): PLACEHOLDER projects. Replace with GPS Projects' real projects, photos and RERA numbers.
 export type Project = {
   slug: string;
   name: string;
@@ -191,13 +192,13 @@ export const projects: Project[] = [
 export const getProject = (slug: string) => projects.find((p) => p.slug === slug);
 
 export const timeline = [
-  { year: "2018", title: "Company incorporated", text: "GPS Prime Projects Pvt. Ltd. registered with ROC Delhi on 16 March 2018." },
-  { year: "Today", title: "Building in Gurugram", text: "Developing and constructing residential buildings from our Sector 54 office." },
+  { year: "2026", title: "Company incorporated", text: "GPS Projects Private Limited registered with ROC Uttar Pradesh II on 14 September 2026." },
+  { year: "Today", title: "Building in Uttar Pradesh", text: "Developing and constructing residential buildings from our base in Etah." },
 ];
 
 export const pillars = [
   { title: "Hands-on construction", text: "We build what we develop, so quality is controlled on site, not on paper." },
   { title: "Homes first", text: "Residential buildings are our focus: practical layouts, good light, honest materials." },
   { title: "Transparent dealings", text: "A registered private limited company with clear paperwork at every step." },
-  { title: "Rooted in Gurugram", text: "Based in Sector 54 and building for the neighbourhoods we know best." },
+  { title: "Rooted in Uttar Pradesh", text: "Based in Etah and building for the neighbourhoods we know best." },
 ];

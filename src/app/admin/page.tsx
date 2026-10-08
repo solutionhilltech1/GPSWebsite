@@ -5,7 +5,7 @@ import AdminClient from "./AdminClient";
 
 export const metadata: Metadata = {
   title: "HR Media Operations Portal",
-  description: "Internal media and gallery management portal for GPS Prime Projects.",
+  description: "Internal media and gallery management portal for GPS Projects Private Limited.",
   robots: {
     index: false,
     follow: false,

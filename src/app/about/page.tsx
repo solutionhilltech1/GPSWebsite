@@ -7,7 +7,7 @@ import styles from "./about.module.css";
 
 export const metadata: Metadata = {
   title: "About",
-  description: `${site.fullName}: residential construction in Gurugram since ${site.legal.incorporated}.`,
+  description: `${site.fullName}: residential construction in ${site.offices[0]} since ${site.legal.incorporated}.`,
 };
 
 export default function AboutPage() {
@@ -22,7 +22,7 @@ export default function AboutPage() {
           <h1 className="display h1">
             Building trust
             <br />
-            <em>since 2018</em>
+            <em>since 2026</em>
           </h1>
         </div>
       </section>
@@ -31,7 +31,7 @@ export default function AboutPage() {
         <div className="container">
           <Words
             className={`display ${styles.manifesto}`}
-            text="GPS Prime Projects was founded in Gurugram in 2018 with one rule: never hand over a home we wouldn't live in ourselves. That rule still signs off every building we deliver."
+            text="GPS Projects was founded in Etah, Uttar Pradesh in 2026 with one rule: never hand over a home we wouldn't live in ourselves. That rule signs off every building we deliver."
           />
         </div>
       </section>

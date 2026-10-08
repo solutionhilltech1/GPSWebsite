@@ -25,7 +25,7 @@ export default function Home() {
           </svg>
 
           <div className={`container ${styles.copy}`} data-roof-copy>
-            <span className="eyebrow">GPS Prime Projects · Est. 2018 · Gurugram</span>
+            <span className="eyebrow">GPS Projects · Est. 2026 · Etah, Uttar Pradesh</span>
             <h1 className="display h1">
               Building
               <br />a better
@@ -33,7 +33,7 @@ export default function Home() {
               <em>tomorrow.</em>
             </h1>
             <p className="lead">
-              Residential buildings in Gurugram, planned, constructed and delivered by one dedicated team.
+              Residential buildings in Uttar Pradesh, planned, constructed and delivered by one dedicated team.
             </p>
             <div className={styles.actions}>
               <Link href="/projects" className="btn btnGold">
@@ -56,7 +56,7 @@ export default function Home() {
 
           <p className={`container ${styles.caption}`} data-roof-caption>
             <span>{site.tagline}</span>
-            {site.fullName} · Gurugram, Haryana
+            {site.fullName} · {site.offices[0]}
           </p>
         </div>
       </section>

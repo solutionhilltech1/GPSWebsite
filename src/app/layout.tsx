@@ -18,15 +18,10 @@ const archivo = Archivo({
 
 export const metadata: Metadata = {
   title: { default: `${site.fullName} | ${site.tagline}`, template: `%s | ${site.fullName}` },
-  description:
-    "GPS Prime Projects Pvt. Ltd. develops and constructs residential buildings in Gurugram, Haryana. Established 2018.",
-  icons: {
-    icon: [
-      { url: "/icon.svg", type: "image/svg+xml" },
-      { url: "/favicon.ico", sizes: "any" },
-    ],
-    apple: "/apple-icon.png",
-  },
+  description: `${site.fullName} develops and constructs residential buildings in ${site.offices[0]}. Established 2026.`,
+  // Share previews (WhatsApp etc.) need absolute image URLs.
+  metadataBase: new URL(site.url),
+  openGraph: { siteName: site.fullName, type: "website", locale: "en_IN" },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
