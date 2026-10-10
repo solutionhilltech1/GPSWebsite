@@ -48,7 +48,6 @@ const org = {
   image: `${site.url}/opengraph-image.png`,
   description: site.description,
   slogan: site.tagline,
-  foundingDate: site.legal.incorporatedISO,
   identifier: { "@type": "PropertyValue", propertyID: "CIN", value: site.legal.cin },
   address: {
     "@type": "PostalAddress",

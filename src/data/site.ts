@@ -8,10 +8,9 @@ export const site = {
   url: "https://gps-one-opal.vercel.app",
   tagline: "Building a Better Tomorrow",
   description:
-    "GPS Projects Private Limited is a construction and infrastructure development company in Etah, Uttar Pradesh, delivering residential, commercial and industrial projects. Established 2026.",
-  // TODO(client): real phone + email. Public records only show a masked Gmail address and no phone.
-  phone: "+91 98100 00000",
-  email: "hello@gpsprimeprojects.in",
+    "GPS Projects Private Limited is a construction and infrastructure development company in Etah, Uttar Pradesh, delivering residential, commercial and industrial projects.",
+  phone: "+91 95603 24929",
+  email: "connect@gpsprojectsprivatelimited.com",
   address: "House No. 138, Pipal Adda, Etah, Uttar Pradesh 207001",
   // Same address, split for structured data (schema.org PostalAddress).
   postal: { street: "House No. 138, Pipal Adda", city: "Etah", region: "Uttar Pradesh", code: "207001" },
@@ -25,10 +24,10 @@ export const site = {
   },
   directors: ["Chirag Rajput", "Rahul Verma"],
   socials: [
-    { label: "Instagram", href: "https://instagram.com" },
-    { label: "LinkedIn", href: "https://linkedin.com" },
-    { label: "YouTube", href: "https://youtube.com" },
-    { label: "Facebook", href: "https://facebook.com" },
+    { label: "YouTube", href: "" },
+    { label: "Instagram", href: "" },
+    { label: "LinkedIn", href: "" },
+    { label: "Facebook", href: "" },
   ],
   nav: [
     { label: "Projects", href: "/projects" },
@@ -48,15 +47,15 @@ export const site = {
 };
 
 export const stats = [
-  { value: "2026", label: "Established" },
+  { value: "Full-Cycle", label: "Civil Construction" },
   { value: "Etah", label: "Uttar Pradesh" },
-  { value: "Construction", label: "& infrastructure" },
+  { value: "Infrastructure", label: "& Development" },
 ];
 
 // Projects live in MongoDB (src/lib/projects.ts), managed at /admin/projects.
 
 export const timeline = [
-  { year: "2026", title: "Company incorporated", text: "GPS Projects Private Limited registered with ROC Uttar Pradesh II on 14 September 2026." },
+  { year: "Foundation", title: "Company incorporated", text: "GPS Projects Private Limited registered with ROC Uttar Pradesh II." },
   { year: "Today", title: "Building in Uttar Pradesh", text: "Delivering residential, commercial and industrial projects from our base in Etah." },
 ];
 

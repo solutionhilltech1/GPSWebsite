@@ -1,10 +1,21 @@
 import Link from "next/link";
 import { site } from "@/data/site";
 import { getProjects } from "@/lib/projects";
+import { getSiteSettings } from "@/lib/settings";
 import styles from "./Footer.module.css";
 
 export default async function Footer() {
-  const projects = await getProjects();
+  const [projects, settings] = await Promise.all([
+    getProjects(),
+    getSiteSettings(),
+  ]);
+
+  const phone = settings.phone || site.phone;
+  const email = settings.email || site.email;
+  const activeSocials = (settings.socials || []).filter(
+    (s) => typeof s.url === "string" && s.url.trim().length > 0
+  );
+
   return (
     <footer className={`${styles.footer} dark`}>
       <div className="container">
@@ -41,15 +52,21 @@ export default async function Footer() {
           </div>
           <div>
             <h3>Get in touch</h3>
-            <a href={`tel:${site.phone.replace(/\s/g, "")}`}>{site.phone}</a>
-            <a href={`mailto:${site.email}`}>{site.email}</a>
-            <div className={styles.socials}>
-              {site.socials.map((s) => (
-                <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer">
-                  {s.label}
-                </a>
-              ))}
-            </div>
+            {phone && (
+              <a href={`tel:${phone.replace(/\s/g, "")}`}>{phone}</a>
+            )}
+            {email && (
+              <a href={`mailto:${email}`}>{email}</a>
+            )}
+            {activeSocials.length > 0 && (
+              <div className={styles.socials}>
+                {activeSocials.map((s) => (
+                  <a key={s.id || s.label} href={s.url} target="_blank" rel="noopener noreferrer">
+                    {s.label}
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>

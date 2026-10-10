@@ -3,6 +3,7 @@ import Image from "next/image";
 import EnquiryForm from "@/components/EnquiryForm";
 import { site } from "@/data/site";
 import { getProjects } from "@/lib/projects";
+import { getSiteSettings } from "@/lib/settings";
 import styles from "./contact.module.css";
 
 export const metadata: Metadata = {
@@ -12,7 +13,13 @@ export const metadata: Metadata = {
 };
 
 export default async function ContactPage() {
-  const projects = await getProjects();
+  const [projects, settings] = await Promise.all([
+    getProjects(),
+    getSiteSettings(),
+  ]);
+  const phone = settings.phone || site.phone;
+  const email = settings.email || site.email;
+
   return (
     <>
       <section className="pageHero">
@@ -37,11 +44,11 @@ export default async function ContactPage() {
             </div>
             <div data-reveal>
               <h2>Call</h2>
-              <a href={`tel:${site.phone.replace(/\s/g, "")}`}>{site.phone}</a>
+              {phone && <a href={`tel:${phone.replace(/\s/g, "")}`}>{phone}</a>}
             </div>
             <div data-reveal>
               <h2>Write</h2>
-              <a href={`mailto:${site.email}`}>{site.email}</a>
+              {email && <a href={`mailto:${email}`}>{email}</a>}
             </div>
             <div data-reveal>
               <h2>Offices</h2>

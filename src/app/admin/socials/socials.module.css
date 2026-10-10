@@ -1,0 +1,476 @@
+/* Social Media & Footer Settings Manager Styles */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: 1040px;
+}
+
+/* Info Callout */
+.infoCallout {
+  background: #ffffff;
+  border-left: 4px solid var(--gold);
+  border-top: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 18px 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  box-shadow: 0 4px 16px rgba(38, 39, 43, 0.03);
+}
+
+.infoIcon {
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--gold);
+  margin-top: 2px;
+}
+
+.infoText {
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+.infoText strong {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* Section Card */
+.card {
+  background: #ffffff;
+  border: 1px solid var(--line);
+  box-shadow: 0 4px 20px rgba(38, 39, 43, 0.04);
+  padding: clamp(24px, 4vw, 36px);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.cardTitle {
+  font-family: var(--display);
+  font-style: italic;
+  font-size: 1.45rem;
+  color: var(--ink);
+}
+
+.cardSubtitle {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* Social Channel Rows */
+.channelList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.channelRow {
+  display: grid;
+  grid-template-columns: 180px 1fr auto auto;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  transition: all 0.2s ease;
+}
+
+.channelRow:hover {
+  background: #ffffff;
+  border-color: var(--concrete);
+  box-shadow: 0 4px 12px rgba(38, 39, 43, 0.04);
+}
+
+.channelRow[data-active="true"] {
+  border-left: 3px solid var(--gold);
+}
+
+.channelMeta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.channelBadge {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: var(--ink);
+  flex-shrink: 0;
+}
+
+.badgeYoutube {
+  background: #ff0000;
+}
+.badgeInstagram {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+.badgeLinkedin {
+  background: #0a66c2;
+}
+.badgeFacebook {
+  background: #1877f2;
+}
+.badgeTwitter {
+  background: #111111;
+}
+.badgeWhatsapp {
+  background: #25d366;
+}
+.badgeCustom {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+.channelName {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+
+.channelNameInput {
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: #ffffff;
+  color: var(--ink);
+  width: 140px;
+}
+
+.channelNameInput:focus {
+  border-color: var(--gold);
+  outline: none;
+}
+
+.urlInputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.urlInput {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  background: #ffffff;
+  font-size: 0.88rem;
+  color: var(--ink);
+  transition: border-color 0.2s ease;
+}
+
+.urlInput:focus {
+  border-color: var(--gold);
+  outline: none;
+}
+
+.statusIndicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.statusActive {
+  background: rgba(16, 185, 129, 0.12);
+  color: #047857;
+}
+
+.statusActiveDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+}
+
+.statusHidden {
+  background: var(--paper-2);
+  color: var(--muted);
+}
+
+.statusHiddenDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--muted);
+}
+
+.actionsGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.testLinkBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--line);
+  background: #ffffff;
+  color: var(--ink);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.testLinkBtn:hover:not(:disabled) {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+.testLinkBtn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.removeBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.removeBtn:hover {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.08);
+}
+
+.addChannelBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 18px;
+  border: 1px dashed var(--concrete);
+  background: transparent;
+  color: var(--ink);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 8px;
+}
+
+.addChannelBtn:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+  background: rgba(196, 154, 80, 0.05);
+}
+
+/* Contact Inputs Grid */
+.contactGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fieldLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.fieldHelper {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.fieldInput {
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  background: #ffffff;
+  font-size: 0.92rem;
+  color: var(--ink);
+  transition: border-color 0.2s ease;
+}
+
+.fieldInput:focus {
+  border-color: var(--gold);
+  outline: none;
+}
+
+/* Live Preview */
+.previewSection {
+  background: #191a1d;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: clamp(24px, 4vw, 36px);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.previewHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.previewBadge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.previewBadgeDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 8px var(--gold);
+}
+
+.previewSub {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.previewFooterBox {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 24px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 440px;
+}
+
+.previewColTitle {
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.previewContactLink {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.95rem;
+  text-decoration: none;
+  display: inline-block;
+  transition: color 0.2s ease;
+}
+
+.previewContactLink:hover {
+  color: var(--gold);
+}
+
+.previewSocialsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin-top: 10px;
+}
+
+.previewSocialTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.previewEmptyNotice {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-style: italic;
+  margin-top: 6px;
+}
+
+/* Save Bar */
+.saveBar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  padding: 20px 24px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+  box-shadow: 0 4px 20px rgba(38, 39, 43, 0.04);
+  position: sticky;
+  bottom: 24px;
+  z-index: 20;
+}
+
+.saveNotice {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .channelRow {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .channelMeta {
+    justify-content: space-between;
+  }
+  .actionsGroup {
+    justify-content: flex-end;
+  }
+  .saveBar {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+}

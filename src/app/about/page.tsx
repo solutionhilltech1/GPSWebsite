@@ -7,7 +7,7 @@ import styles from "./about.module.css";
 
 export const metadata: Metadata = {
   title: "About",
-  description: `${site.fullName}: construction and infrastructure development in ${site.offices[0]} since ${site.legal.incorporated}.`,
+  description: `${site.fullName}: construction and infrastructure development in ${site.offices[0]}.`,
   alternates: { canonical: "/about" },
 };
 
@@ -21,9 +21,9 @@ export default function AboutPage() {
         <div className="container">
           <span className="eyebrow">About us</span>
           <h1 className="display h1">
-            Building trust
+            Building trust,
             <br />
-            <em>since 2026</em>
+            <em>brick by brick</em>
           </h1>
         </div>
       </section>

@@ -28,7 +28,7 @@ export default function Home() {
           </svg>
 
           <div className={`container ${styles.copy}`} data-roof-copy>
-            <span className="eyebrow">{site.fullName} · Est. 2026</span>
+            <span className="eyebrow">{site.fullName}</span>
             <h1 className="display h1">
               A new name for modern construction <em>and trust.</em>
             </h1>

@@ -8,7 +8,7 @@ export async function GET() {
 
 > ${site.description}
 
-${site.fullName} is a registered private limited company (CIN ${site.legal.cin}), incorporated on ${site.legal.incorporated} with the ${site.legal.registrar}. Registered office: ${site.address}, India. Directors: ${site.directors.join(", ")}.
+${site.fullName} is a registered private limited company (CIN ${site.legal.cin}) with the ${site.legal.registrar}. Registered office: ${site.address}, India. Directors: ${site.directors.join(", ")}.
 
 ## What we do
 

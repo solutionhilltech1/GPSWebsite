@@ -17,6 +17,7 @@ const paths = {
   search: "M11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14zM21 21l-5-5",
   upload: "M12 16V4M7 9l5-5 5 5M4 16v4h16v-4",
   plus: "M12 5v14M5 12h14",
+  share: "M18 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM6 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM18 22a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98",
 };
 
 export function Icon({ name, size = 18 }: { name: keyof typeof paths; size?: number }) {
@@ -30,6 +31,7 @@ export function Icon({ name, size = 18 }: { name: keyof typeof paths; size?: num
 const nav = [
   { href: "/admin", label: "Gallery", icon: "gallery" },
   { href: "/admin/projects", label: "Projects", icon: "projects" },
+  { href: "/admin/socials", label: "Social Media", icon: "share" },
 ] as const;
 
 /** Frame for every logged-in admin screen: sidebar (top bar on phones) + page heading + content. */
@@ -41,7 +43,7 @@ export default function AdminShell({
   onLock,
   children,
 }: {
-  active: "/admin" | "/admin/projects";
+  active: "/admin" | "/admin/projects" | "/admin/socials";
   title: string;
   subtitle: string;
   actions?: React.ReactNode;
@@ -64,7 +66,7 @@ export default function AdminShell({
           ))}
         </nav>
         <div className={styles.sideFoot}>
-          <Link href={active === "/admin" ? "/gallery" : "/projects"} target="_blank">
+          <Link href={active === "/admin" ? "/gallery" : active === "/admin/projects" ? "/projects" : "/#footer"} target="_blank">
             <Icon name="external" />
             View on website
           </Link>
