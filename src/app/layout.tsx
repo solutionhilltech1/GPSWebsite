@@ -9,6 +9,7 @@ import SiteChrome from "@/components/SiteChrome";
 import ScrollFX from "@/components/ScrollFX";
 import JsonLd from "@/components/JsonLd";
 import { site } from "@/data/site";
+import { Analytics } from "@vercel/analytics/next";
 
 // One family does everything: heavy italic for headlines (like the logo), regular for text.
 const archivo = Archivo({
@@ -85,6 +86,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Suspense>
           <ScrollFX />
         </Suspense>
+        <Analytics />
       </body>
     </html>
   );
