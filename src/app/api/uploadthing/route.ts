@@ -5,8 +5,8 @@ import { ADMIN_COOKIE, validSession } from "@/lib/auth";
 const f = createUploadthing();
 
 // Read the cookie off `req`, not cookies(): this runs inside UploadThing's Effect runtime.
-const adminOnly = ({ req }: { req: Request & { cookies: { get(name: string): { value: string } | undefined } } }) => {
-  if (!validSession(req.cookies.get(ADMIN_COOKIE)?.value)) throw new UploadThingError({ code: "FORBIDDEN", message: "Please log in again." });
+const adminOnly = async ({ req }: { req: Request & { cookies: { get(name: string): { value: string } | undefined } } }) => {
+  if (!(await validSession(req.cookies.get(ADMIN_COOKIE)?.value))) throw new UploadThingError({ code: "FORBIDDEN", message: "Please log in again." });
   return {};
 };
 
