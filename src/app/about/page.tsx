@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Words from "@/components/Words";
-import { about, pillars, site, stats, timeline } from "@/data/site";
+import { about, pillars, services, site } from "@/data/site";
 import styles from "./about.module.css";
 
 export const metadata: Metadata = {
@@ -10,6 +10,26 @@ export const metadata: Metadata = {
   description: `${site.fullName}: construction and infrastructure development in ${site.offices[0]}.`,
   alternates: { canonical: "/about" },
 };
+
+const glance = [
+  { label: "Headquarters", value: site.offices[0] },
+  { label: "Sectors", value: "Residential, commercial, industrial & infrastructure" },
+  { label: "Equipment", value: "Own fleet of heavy machinery" },
+];
+
+const profile = [
+  { label: "Legal name", value: site.fullName },
+  { label: "CIN", value: site.legal.cin },
+  { label: "Registrar", value: site.legal.registrar },
+  { label: "Registered office", value: site.address },
+  { label: "Directors", value: site.directors.join(", ") },
+];
+
+const initials = (name: string) =>
+  name
+    .split(" ")
+    .map((w) => w[0])
+    .join("");
 
 export default function AboutPage() {
   return (
@@ -29,11 +49,24 @@ export default function AboutPage() {
       </section>
 
       <section className="section">
-        <div className="container">
-          <Words className={`display ${styles.manifesto}`} text={about.intro} />
-          <p className={`lead ${styles.intro}`} data-reveal>
-            {about.text}
-          </p>
+        <div className={`container ${styles.introGrid}`}>
+          <div>
+            <span className="eyebrow" data-reveal>
+              Who we are
+            </span>
+            <Words className={`display ${styles.manifesto}`} text={about.intro} />
+            <p className={`lead ${styles.intro}`} data-reveal>
+              {about.text}
+            </p>
+          </div>
+          <dl className={styles.glance} data-reveal>
+            {glance.map((g) => (
+              <div key={g.label}>
+                <dt>{g.label}</dt>
+                <dd>{g.value}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </section>
 
@@ -55,20 +88,35 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="section dark">
-        <div className={`container ${styles.numbers}`}>
-          {stats.map((s) => (
-            <div key={s.label} data-reveal>
-              <p className="display">
-                {s.value}
-              </p>
-              <span>{s.label}</span>
-            </div>
-          ))}
+      <section className="section">
+        <div className="container">
+          <span className="eyebrow" data-reveal>
+            What we do
+          </span>
+          <h2 className={`display h2 ${styles.heading}`} data-reveal>
+            One partner from <em>plan to handover</em>
+          </h2>
+          <div className={styles.services}>
+            {services.map((s, i) => (
+              <div key={s.title} data-reveal>
+                <span>0{i + 1}</span>
+                <h3 className="display h3">{s.title}</h3>
+                <p>{s.text}</p>
+                <ul>
+                  {s.scope.map((x) => (
+                    <li key={x}>{x}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+          <Link href="/services" className="btn" data-reveal>
+            Explore our services
+          </Link>
         </div>
       </section>
 
-      <section className="section">
+      <section className="section dark">
         <div className="container">
           <span className="eyebrow" data-reveal>
             Why choose us
@@ -85,23 +133,73 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="section dark">
-        <div className="container">
-          <span className="eyebrow" data-reveal>
-            Milestones
-          </span>
-          <ol className={styles.milestones}>
-            {timeline.map((t) => (
-              <li key={t.year} data-reveal>
-                <span className="display">{t.year}</span>
-                <h3>{t.title}</h3>
-                <p>{t.text}</p>
+      <section className="section">
+        <div className={`container ${styles.leadership}`}>
+          <div>
+            <span className="eyebrow" data-reveal>
+              Leadership
+            </span>
+            <h2 className={`display h2 ${styles.heading}`} data-reveal>
+              Led by people who <em>answer for the work</em>
+            </h2>
+            <p className="lead" data-reveal>
+              Our directors are directly involved in every project, so clients always have a decision-maker on call.
+            </p>
+          </div>
+          <ul className={styles.people}>
+            {site.directors.map((d) => (
+              <li key={d} data-reveal>
+                <span className={styles.monogram} aria-hidden="true">
+                  {initials(d)}
+                </span>
+                <div>
+                  <h3>{d}</h3>
+                  <p>Director</p>
+                </div>
               </li>
             ))}
-          </ol>
-          <Link href="/projects" className="btn" data-reveal>
-            See our projects
-          </Link>
+          </ul>
+        </div>
+      </section>
+
+      <section className="section dark">
+        <div className={`container ${styles.profileGrid}`}>
+          <div>
+            <span className="eyebrow" data-reveal>
+              Corporate profile
+            </span>
+            <h2 className={`display h2 ${styles.heading}`} data-reveal>
+              A registered company, <em>on the record</em>
+            </h2>
+            <p className="lead" data-reveal>
+              {site.fullName} is a private limited company registered with the Ministry of Corporate Affairs, Government of
+              India.
+            </p>
+          </div>
+          <dl className={styles.profile} data-reveal>
+            {profile.map((p) => (
+              <div key={p.label}>
+                <dt>{p.label}</dt>
+                <dd>{p.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className={`container ${styles.cta}`}>
+          <h2 className="display h2" data-reveal>
+            Have a project in mind? <em>Let&rsquo;s build it.</em>
+          </h2>
+          <div className={styles.ctaActions} data-reveal>
+            <Link href="/contact" className="btn btnGold">
+              Get in touch
+            </Link>
+            <Link href="/projects" className="btn">
+              See our projects
+            </Link>
+          </div>
         </div>
       </section>
     </>

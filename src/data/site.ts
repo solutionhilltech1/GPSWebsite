@@ -55,11 +55,6 @@ export const stats = [
 
 // Projects live in MongoDB (src/lib/projects.ts), managed at /admin/projects.
 
-export const timeline = [
-  { year: "Foundation", title: "Company incorporated", text: "GPS Projects Private Limited registered with ROC Uttar Pradesh II." },
-  { year: "Today", title: "Building in Uttar Pradesh", text: "Delivering residential, commercial and industrial projects from our base in Etah." },
-];
-
 // Client copy (Oct 2026).
 export const about = {
   intro: "Welcome to GPS Projects Private Limited. We are an emerging and progressive construction and infrastructure development company.",

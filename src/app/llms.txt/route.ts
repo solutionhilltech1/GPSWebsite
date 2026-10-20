@@ -20,7 +20,7 @@ ${services.map((s) => `- ${s.title}: ${s.text}`).join("\n")}
 - [Projects](${site.url}/projects): Commercial, healthcare and religious projects
 - [Services](${site.url}/services): Civil construction, infrastructure, design and project management
 - [Gallery](${site.url}/gallery): Construction progress and site photography
-- [About](${site.url}/about): Company story, vision and timeline
+- [About](${site.url}/about): Company profile, vision, leadership and registration details
 - [Contact](${site.url}/contact): Enquiries and site visits
 
 ## Projects

@@ -1,11 +1,65 @@
 .manifesto {
-  font-size: clamp(2rem, 4.6vw, 4.2rem);
+  font-size: clamp(2rem, 4.2vw, 3.8rem);
   line-height: 1.12;
-  max-width: 24ch;
+  max-width: 22ch;
+  margin-top: 24px;
 }
 
 .intro {
   margin-top: 40px;
+  max-width: 60ch;
+}
+
+.introGrid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: clamp(40px, 6vw, 96px);
+  align-items: end;
+}
+
+.heading {
+  margin: 20px 0 32px;
+  max-width: 18ch;
+}
+
+/* Key/value lists: "at a glance" and the corporate profile. */
+.glance,
+.profile {
+  display: grid;
+}
+
+.glance > div,
+.profile > div {
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+}
+
+.glance dt,
+.profile dt {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.glance dd,
+.profile dd {
+  margin: 6px 0 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.profile > div {
+  display: grid;
+  grid-template-columns: 11rem 1fr;
+  gap: 16px;
+  border-color: var(--line-light);
+}
+
+.profile dd {
+  margin: 0;
+  font-weight: 500;
+  overflow-wrap: anywhere;
 }
 
 .duo {
@@ -33,101 +87,142 @@
   line-height: 1.2;
 }
 
-.numbers {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 32px;
-}
-
-.numbers > div {
-  border-top: 1px solid var(--line-light);
-  padding-top: 24px;
-}
-
-.numbers p {
-  font-size: clamp(3rem, 5.6vw, 5.2rem);
-  line-height: 1;
-  white-space: nowrap;
-}
-
-.numbers sup {
-  font-size: 0.45em;
-  color: var(--gold);
-}
-
-.numbers > div > span {
-  display: block;
-  margin-top: 12px;
-  font-size: 0.8rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--muted-light);
-}
-
+.services,
 .pillars {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 40px;
-  margin-top: 48px;
+  margin: 48px 0;
 }
 
+.services > div,
 .pillars > div {
   border-top: 1px solid var(--line);
   padding-top: 24px;
 }
 
+.pillars > div {
+  border-color: var(--line-light);
+}
+
+.services > div > span,
 .pillars span {
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   color: var(--gold);
 }
 
+.services h3,
 .pillars h2 {
   margin: 12px 0;
 }
 
-.pillars p {
+.services p {
   color: var(--muted);
 }
 
-.milestones {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 56px 40px;
-  margin: 48px 0 64px;
-}
-
-.milestones span {
-  font-size: clamp(2.6rem, 4.4vw, 4rem);
-  line-height: 1;
-  color: var(--gold-light);
-}
-
-.milestones h3 {
-  margin: 14px 0 6px;
-  font-size: 1.1rem;
-}
-
-.milestones p {
+.pillars p {
   color: var(--muted-light);
 }
 
+.services ul {
+  list-style: none;
+  margin-top: 16px;
+  font-size: 0.9rem;
+}
+
+.services li {
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--line);
+}
+
+.leadership,
+.profileGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 96px);
+  align-items: center;
+}
+
+.people {
+  list-style: none;
+  display: grid;
+  gap: 16px;
+}
+
+.people li {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 24px;
+  background: var(--stone);
+}
+
+.monogram {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--gold-light);
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.people h3 {
+  font-size: 1.25rem;
+}
+
+.people p {
+  margin-top: 4px;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cta {
+  text-align: center;
+}
+
+.cta h2 {
+  max-width: 20ch;
+  margin: 0 auto;
+}
+
+.ctaActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 40px;
+}
+
 @media (max-width: 900px) {
-  .duo {
+  .duo,
+  .introGrid,
+  .leadership,
+  .profileGrid {
     grid-template-columns: 1fr;
   }
 
-  .numbers,
-  .pillars,
-  .milestones {
+  .services,
+  .pillars {
     grid-template-columns: 1fr 1fr;
   }
 }
 
 @media (max-width: 520px) {
-  .pillars,
-  .milestones {
+  .services,
+  .pillars {
     grid-template-columns: 1fr;
+  }
+
+  .profile > div {
+    grid-template-columns: 1fr;
+    gap: 4px;
   }
 }

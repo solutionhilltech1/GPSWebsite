@@ -72,7 +72,7 @@ const website = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en-IN" className={archivo.variable}>
-      <body>
+      <body suppressHydrationWarning>
         <JsonLd data={{ "@graph": [org, website] }} />
         <SiteChrome>
           <Header />
