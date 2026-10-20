@@ -2,14 +2,17 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Words from "@/components/Words";
+import JsonLd from "@/components/JsonLd";
 import { about, pillars, services, site } from "@/data/site";
+import { breadcrumbs, pageMeta } from "@/lib/seo";
 import styles from "./about.module.css";
 
-export const metadata: Metadata = {
-  title: "About",
-  description: `${site.fullName}: construction and infrastructure development in ${site.offices[0]}.`,
-  alternates: { canonical: "/about" },
-};
+export const metadata: Metadata = pageMeta({
+  title: "About Us: Construction Company in Etah",
+  description: `${site.fullName} is a registered construction and infrastructure development company in ${site.offices[0]}. Meet our directors and read our vision, mission and company profile.`,
+  path: "/about",
+  image: "/opengraph-image.png",
+});
 
 const glance = [
   { label: "Headquarters", value: site.offices[0] },
@@ -34,9 +37,24 @@ const initials = (name: string) =>
 export default function AboutPage() {
   return (
     <>
+      <JsonLd
+        data={{
+          "@graph": [
+            breadcrumbs([{ name: "About", path: "/about" }]),
+            {
+              "@type": "AboutPage",
+              "@id": `${site.url}/about#page`,
+              url: `${site.url}/about`,
+              name: `About ${site.fullName}`,
+              about: { "@id": `${site.url}/#organization` },
+              isPartOf: { "@id": `${site.url}/#website` },
+            },
+          ],
+        }}
+      />
       <section className="pageHero">
         <div className="media" data-speed="0.3">
-          <Image src={site.images.site} alt="" fill priority sizes="100vw" />
+          <Image src={site.images.site} alt="Construction site and building frame by GPS Projects" fill priority sizes="100vw" />
         </div>
         <div className="container">
           <span className="eyebrow">About us</span>

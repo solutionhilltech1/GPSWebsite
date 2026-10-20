@@ -42,3 +42,51 @@
     gap: 16px;
   }
 }
+
+.faqTitle {
+  margin: 20px 0 40px;
+}
+
+.faqs {
+  max-width: 62rem;
+}
+
+.faqs details {
+  border-top: 1px solid var(--line-light);
+  padding: 22px 0;
+}
+
+.faqs details:last-child {
+  border-bottom: 1px solid var(--line-light);
+}
+
+.faqs summary {
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 600;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.faqs summary::-webkit-details-marker {
+  display: none;
+}
+
+.faqs summary::after {
+  content: "+";
+  color: var(--gold-light);
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.faqs details[open] summary::after {
+  content: "\2212";
+}
+
+.faqs p {
+  margin-top: 14px;
+  max-width: 60ch;
+  color: var(--muted-light);
+}

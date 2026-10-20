@@ -15,6 +15,8 @@ export const site = {
   // Same address, split for structured data (schema.org PostalAddress).
   postal: { street: "House No. 138, Pipal Adda", city: "Etah", region: "Uttar Pradesh", code: "207001" },
   offices: ["Etah, Uttar Pradesh"],
+  // Etah city centre, for local-business structured data. ponytail: approximate, swap for the exact office pin from Google Maps.
+  geo: { latitude: 27.5588, longitude: 78.6578 },
   // Public company record (MCA, via Tracxn)
   legal: {
     cin: "U41001UW2026PTC258583",
@@ -105,3 +107,31 @@ export const machinery = {
     { name: "Tractors & trolleys", text: "Hauling sand, aggregate and steel across the site." },
   ],
 };
+
+// Visible FAQ on /services, also sent to Google as FAQPage structured data (the two must stay identical).
+export const faqs = [
+  {
+    q: "What does GPS Projects Private Limited build?",
+    a: "We build residential apartments, villas, commercial buildings and industrial complexes, and we develop roads, bridges and other infrastructure. We also offer architectural and interior design and complete project management.",
+  },
+  {
+    q: "Where do you work?",
+    a: "We are based in Etah, Uttar Pradesh, and deliver projects across Uttar Pradesh.",
+  },
+  {
+    q: "Do you handle a project from design to handover?",
+    a: "Yes. Our project management service covers planning, site supervision and handover, so one team is accountable from the first drawing to the last inspection.",
+  },
+  {
+    q: "Do you use your own equipment?",
+    a: "Yes. We own and run our own heavy construction machinery, including cranes, earthmoving equipment, concrete mixers and tractors with trolleys, so work on site does not wait on hired equipment.",
+  },
+  {
+    q: "How can I get a quotation or book a site visit?",
+    a: `Send an enquiry through the contact page or call us on ${site.phone}. The right team will get back to you to discuss scope, timeline and budget.`,
+  },
+  {
+    q: "Is GPS Projects a registered company?",
+    a: `Yes. GPS Projects Private Limited is registered with the ${site.legal.registrar} under the Ministry of Corporate Affairs (CIN ${site.legal.cin}).`,
+  },
+];

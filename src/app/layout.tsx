@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 import SiteChrome from "@/components/SiteChrome";
 import ScrollFX from "@/components/ScrollFX";
 import JsonLd from "@/components/JsonLd";
-import { site } from "@/data/site";
+import { services, site } from "@/data/site";
 import { Analytics } from "@vercel/analytics/next";
 
 // One family does everything: heavy italic for headlines (like the logo), regular for text.
@@ -20,8 +20,18 @@ const archivo = Archivo({
 });
 
 export const metadata: Metadata = {
-  title: { default: `${site.fullName} | ${site.tagline}`, template: `%s | ${site.fullName}` },
+  title: { default: `${site.fullName} | Construction Company in Etah, Uttar Pradesh`, template: `%s | ${site.fullName}` },
   description: site.description,
+  keywords: [
+    "construction company in Etah",
+    "civil contractor Uttar Pradesh",
+    "infrastructure development",
+    "residential construction",
+    "commercial construction",
+    "industrial construction",
+    "project management",
+    "GPS Projects",
+  ],
   applicationName: site.fullName,
   authors: [{ name: site.fullName, url: site.url }],
   creator: site.fullName,
@@ -30,14 +40,21 @@ export const metadata: Metadata = {
   formatDetection: { telephone: false, email: false, address: false },
   // Share previews (WhatsApp etc.) need absolute image URLs.
   metadataBase: new URL(site.url),
-  openGraph: { siteName: site.fullName, type: "website", locale: "en_IN" },
+  openGraph: { siteName: site.fullName, type: "website", locale: "en_IN", url: "/" },
   twitter: { card: "summary_large_image" },
+  // Local-business hints for search engines that still read them.
+  other: {
+    "geo.region": "IN-UP",
+    "geo.placename": site.postal.city,
+    "geo.position": `${site.geo.latitude};${site.geo.longitude}`,
+    ICBM: `${site.geo.latitude}, ${site.geo.longitude}`,
+  },
   robots: { index: true, follow: true, googleBot: { "max-image-preview": "large", "max-snippet": -1 } },
 };
 
 export const viewport: Viewport = { themeColor: "#ffffff" };
 
-// Company and website facts for Google's knowledge panel. Phone, email and socials are left out until they're real.
+// Company and website facts for Google's knowledge panel. sameAs (social profiles) is left out until the real URLs exist.
 const org = {
   "@type": "GeneralContractor",
   "@id": `${site.url}/#organization`,
@@ -49,7 +66,28 @@ const org = {
   image: `${site.url}/opengraph-image.png`,
   description: site.description,
   slogan: site.tagline,
+  telephone: site.phone,
+  email: site.email,
+  founder: site.directors.map((name) => ({ "@type": "Person", name, jobTitle: "Director" })),
   identifier: { "@type": "PropertyValue", propertyID: "CIN", value: site.legal.cin },
+  contactPoint: {
+    "@type": "ContactPoint",
+    contactType: "customer service",
+    telephone: site.phone,
+    email: site.email,
+    areaServed: "IN",
+    availableLanguage: ["English", "Hindi"],
+  },
+  geo: { "@type": "GeoCoordinates", latitude: site.geo.latitude, longitude: site.geo.longitude },
+  knowsAbout: ["Civil construction", "Infrastructure development", "Architectural design", "Interior design", "Project management"],
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Construction services",
+    itemListElement: services.map((s) => ({
+      "@type": "Offer",
+      itemOffered: { "@type": "Service", name: s.title, description: s.text },
+    })),
+  },
   address: {
     "@type": "PostalAddress",
     streetAddress: site.postal.street,

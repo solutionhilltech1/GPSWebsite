@@ -1,16 +1,19 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import EnquiryForm from "@/components/EnquiryForm";
+import JsonLd from "@/components/JsonLd";
 import { site } from "@/data/site";
+import { breadcrumbs, pageMeta } from "@/lib/seo";
 import { getProjects } from "@/lib/projects";
 import { getSiteSettings } from "@/lib/settings";
 import styles from "./contact.module.css";
 
-export const metadata: Metadata = {
-  title: "Contact",
-  description: "Book a site visit or talk to our sales and leasing teams.",
-  alternates: { canonical: "/contact" },
-};
+export const metadata: Metadata = pageMeta({
+  title: "Contact Us: Get a Quote or Book a Site Visit",
+  description: `Contact ${site.fullName} in Etah, Uttar Pradesh. Call ${site.phone}, send an enquiry, request a quotation or book a site visit.`,
+  path: "/contact",
+  image: "/opengraph-image.png",
+});
 
 export default async function ContactPage() {
   const [projects, settings] = await Promise.all([
@@ -22,9 +25,22 @@ export default async function ContactPage() {
 
   return (
     <>
+      <JsonLd
+        data={{
+          "@graph": [
+            breadcrumbs([{ name: "Contact", path: "/contact" }]),
+            {
+              "@type": "ContactPage",
+              url: `${site.url}/contact`,
+              name: `Contact ${site.fullName}`,
+              about: { "@id": `${site.url}/#organization` },
+            },
+          ],
+        }}
+      />
       <section className="pageHero">
         <div className="media" data-speed="0.3">
-          <Image src={site.images.hero} alt="" fill priority sizes="100vw" />
+          <Image src={site.images.hero} alt="Residential towers by GPS Projects" fill priority sizes="100vw" />
         </div>
         <div className="container">
           <span className="eyebrow">Contact</span>

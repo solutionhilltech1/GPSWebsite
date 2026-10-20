@@ -4,9 +4,15 @@ import Link from "next/link";
 import Skyline from "@/components/Skyline";
 import Words from "@/components/Words";
 import { about, machinery, pillars, services, site, stats } from "@/data/site";
+import { pageMeta } from "@/lib/seo";
 import styles from "./page.module.css";
 
-export const metadata: Metadata = { alternates: { canonical: "/" } };
+export const metadata: Metadata = pageMeta({
+  description:
+    "GPS Projects Private Limited is a construction and infrastructure company in Etah, Uttar Pradesh. Civil construction, roads and bridges, architectural and interior design, and complete project management.",
+  path: "/",
+  image: "/opengraph-image.png",
+});
 
 export default function Home() {
   return (
@@ -28,7 +34,7 @@ export default function Home() {
           </svg>
 
           <div className={`container ${styles.copy}`} data-roof-copy>
-            <span className="eyebrow">{site.fullName}</span>
+            <span className="eyebrow">{site.fullName} · Etah, Uttar Pradesh</span>
             <h1 className="display h1">
               A new name for modern construction <em>and trust.</em>
             </h1>

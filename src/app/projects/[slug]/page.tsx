@@ -6,6 +6,7 @@ import { ViewTransition } from "react";
 import EnquiryForm from "@/components/EnquiryForm";
 import JsonLd from "@/components/JsonLd";
 import { site } from "@/data/site";
+import { breadcrumbs, pageMeta } from "@/lib/seo";
 import { getProject, getProjects } from "@/lib/projects";
 import styles from "./project.module.css";
 
@@ -18,11 +19,12 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<"/projects/[slug]">): Promise<Metadata> {
   const project = await getProject((await params).slug);
   return project
-    ? {
-        title: project.name,
-        description: `${project.tagline}. ${project.location}.`,
-        alternates: { canonical: `/projects/${project.slug}` },
-      }
+    ? pageMeta({
+        title: `${project.name}: ${project.category} Project`,
+        description: `${project.tagline}. ${project.category} project, ${project.status.toLowerCase()}, in ${project.location}, built by ${site.fullName}.`,
+        path: `/projects/${project.slug}`,
+        image: project.image,
+      })
     : {};
 }
 
@@ -38,18 +40,34 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
     <>
       <JsonLd
         data={{
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: site.url },
-            { "@type": "ListItem", position: 2, name: "Projects", item: `${site.url}/projects` },
-            { "@type": "ListItem", position: 3, name: project.name, item: `${site.url}/projects/${project.slug}` },
+          "@graph": [
+            breadcrumbs([
+              { name: "Projects", path: "/projects" },
+              { name: project.name, path: `/projects/${project.slug}` },
+            ]),
+            {
+              "@type": "WebPage",
+              "@id": `${site.url}/projects/${project.slug}#page`,
+              url: `${site.url}/projects/${project.slug}`,
+              name: project.name,
+              description: project.description,
+              primaryImageOfPage: { "@type": "ImageObject", url: project.image },
+              image: [project.image, ...project.gallery],
+              isPartOf: { "@id": `${site.url}/#website` },
+              about: {
+                "@type": "Place",
+                name: project.name,
+                address: { "@type": "PostalAddress", addressLocality: project.location, addressCountry: "IN" },
+              },
+              author: { "@id": `${site.url}/#organization` },
+            },
           ],
         }}
       />
       <section className={`pageHero ${styles.hero}`}>
         <ViewTransition name={`project-${project.slug}`} share="morph" default="none">
           <div className="media" data-speed="0.3">
-            <Image src={project.image} alt={project.name} fill priority sizes="100vw" />
+            <Image src={project.image} alt={`${project.name}, ${project.category.toLowerCase()} project in ${project.location}`} fill priority sizes="100vw" />
           </div>
         </ViewTransition>
         <div className="container">

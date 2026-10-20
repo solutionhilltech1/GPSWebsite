@@ -2,15 +2,18 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ViewTransition } from "react";
+import JsonLd from "@/components/JsonLd";
 import { site } from "@/data/site";
+import { breadcrumbs, pageMeta } from "@/lib/seo";
 import { categories, getProjects } from "@/lib/projects";
 import styles from "./projects.module.css";
 
-export const metadata: Metadata = {
-  title: "Projects",
-  description: `Commercial, healthcare and religious projects built by ${site.fullName}.`,
-  alternates: { canonical: "/projects" },
-};
+export const metadata: Metadata = pageMeta({
+  title: "Our Projects: Commercial, Healthcare & Religious Construction",
+  description: `Browse commercial, healthcare and religious projects engineered and delivered by ${site.fullName} in Uttar Pradesh.`,
+  path: "/projects",
+  image: "/opengraph-image.png",
+});
 
 export default async function ProjectsPage() {
   const projects = await getProjects();
@@ -18,9 +21,26 @@ export default async function ProjectsPage() {
   const usedCategories = categories.filter((c) => projects.some((p) => p.category === c));
   return (
     <>
+      <JsonLd
+        data={{
+          "@graph": [
+            breadcrumbs([{ name: "Projects", path: "/projects" }]),
+            {
+              "@type": "ItemList",
+              name: `Projects by ${site.fullName}`,
+              itemListElement: projects.map((p, i) => ({
+                "@type": "ListItem",
+                position: i + 1,
+                name: p.name,
+                url: `${site.url}/projects/${p.slug}`,
+              })),
+            },
+          ],
+        }}
+      />
       <section className="pageHero">
         <div className="media" data-speed="0.3">
-          <Image src={site.images.dusk} alt="" fill priority sizes="100vw" />
+          <Image src={site.images.dusk} alt="Building skyline at dusk" fill priority sizes="100vw" />
         </div>
         <div className="container">
           <span className="eyebrow">Our portfolio</span>

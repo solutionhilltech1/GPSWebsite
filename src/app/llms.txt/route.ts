@@ -10,6 +10,8 @@ export async function GET() {
 
 ${site.fullName} is a registered private limited company (CIN ${site.legal.cin}) with the ${site.legal.registrar}. Registered office: ${site.address}, India. Directors: ${site.directors.join(", ")}.
 
+Contact: ${site.phone}, ${site.email}, ${site.url}/contact
+
 ## What we do
 
 ${services.map((s) => `- ${s.title}: ${s.text}`).join("\n")}
