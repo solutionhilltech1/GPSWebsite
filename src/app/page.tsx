@@ -18,7 +18,7 @@ export default function Home() {
       <section className={styles.hero} data-roof>
         <div className={styles.stage}>
           <div className={styles.window} data-roof-window>
-            <Image src="/hero.png" alt="Rooftop terrace with pink Rajasthani-style parapets" fill priority sizes="100vw" />
+            <Image src="/hero-tower.jpg" alt="Modern luxury twin residential towers with skybridge crown" fill priority sizes="100vw" />
             <div className={styles.shade} data-roof-shade />
           </div>
 
@@ -61,7 +61,79 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 2. Our own machinery */}
+      {/* 2. About */}
+      <section className="section">
+        <div className="container">
+          <span className="eyebrow" data-reveal>
+            About us
+          </span>
+          <Words className={`display ${styles.manifesto}`} text={about.intro} />
+          <div className={styles.aboutRow}>
+            <p className="lead" data-reveal>
+              {about.text}
+            </p>
+            <Link href="/about" className="btn" data-reveal>
+              About GPS
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Services: dusk skyline parallax behind glass cards */}
+      <Skyline>
+        <span className="eyebrow" data-reveal>
+          Our core services
+        </span>
+        <h2 className={`display h2 ${styles.skyTitle}`} data-reveal>
+          From plan <em>to handover.</em>
+        </h2>
+        <ol className={`${styles.cards} ${styles.glass}`}>
+          {services.map((s, i) => (
+            <li key={s.title} data-reveal>
+              <span>0{i + 1}</span>
+              <h3 className="display h3">{s.title}</h3>
+              <p>{s.text}</p>
+            </li>
+          ))}
+        </ol>
+        <Link href="/services" className="btn btnGold" data-reveal>
+          All services
+        </Link>
+      </Skyline>
+
+      {/* 4. Why choose us */}
+      <section className="section dark">
+        <div className="container">
+          <span className="eyebrow" data-reveal>
+            Why choose us
+          </span>
+          <ol className={styles.cards}>
+            {pillars.map((p, i) => (
+              <li key={p.title} data-reveal>
+                <span>0{i + 1}</span>
+                <h3 className="display h3">{p.title}</h3>
+                <p>{p.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* 5. Vision & mission */}
+      <section className="section">
+        <div className={`container ${styles.vm}`}>
+          <div data-reveal>
+            <span className="eyebrow">Vision</span>
+            <p className="display h3">{about.vision}</p>
+          </div>
+          <div data-reveal>
+            <span className="eyebrow">Mission</span>
+            <p className="display h3">{about.mission}</p>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Our own machinery */}
       <section className={styles.split}>
         <div className={`${styles.splitImage} frame`} data-clip>
           <div className="media" data-speed="0.2">
@@ -86,78 +158,6 @@ export default function Home() {
               </li>
             ))}
           </ul>
-        </div>
-      </section>
-
-      {/* 3. About */}
-      <section className="section">
-        <div className="container">
-          <span className="eyebrow" data-reveal>
-            About us
-          </span>
-          <Words className={`display ${styles.manifesto}`} text={about.intro} />
-          <div className={styles.aboutRow}>
-            <p className="lead" data-reveal>
-              {about.text}
-            </p>
-            <Link href="/about" className="btn" data-reveal>
-              About GPS
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Services: dusk skyline parallax behind glass cards */}
-      <Skyline>
-        <span className="eyebrow" data-reveal>
-          Our core services
-        </span>
-        <h2 className={`display h2 ${styles.skyTitle}`} data-reveal>
-          From plan <em>to handover.</em>
-        </h2>
-        <ol className={`${styles.cards} ${styles.glass}`}>
-          {services.map((s, i) => (
-            <li key={s.title} data-reveal>
-              <span>0{i + 1}</span>
-              <h3 className="display h3">{s.title}</h3>
-              <p>{s.text}</p>
-            </li>
-          ))}
-        </ol>
-        <Link href="/services" className="btn btnGold" data-reveal>
-          All services
-        </Link>
-      </Skyline>
-
-      {/* 5. Why choose us */}
-      <section className="section dark">
-        <div className="container">
-          <span className="eyebrow" data-reveal>
-            Why choose us
-          </span>
-          <ol className={styles.cards}>
-            {pillars.map((p, i) => (
-              <li key={p.title} data-reveal>
-                <span>0{i + 1}</span>
-                <h3 className="display h3">{p.title}</h3>
-                <p>{p.text}</p>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      {/* 6. Vision & mission */}
-      <section className="section">
-        <div className={`container ${styles.vm}`}>
-          <div data-reveal>
-            <span className="eyebrow">Vision</span>
-            <p className="display h3">{about.vision}</p>
-          </div>
-          <div data-reveal>
-            <span className="eyebrow">Mission</span>
-            <p className="display h3">{about.mission}</p>
-          </div>
         </div>
       </section>
     </>

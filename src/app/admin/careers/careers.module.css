@@ -1,0 +1,215 @@
+/* Job rows and applicant table. Everything else comes from ../admin.module.css. */
+
+.filters {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.count {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.empty {
+  padding: 56px 20px;
+  text-align: center;
+  color: var(--muted);
+  background: #fff;
+  border: 1px dashed var(--line);
+}
+
+/* ---------- Jobs ---------- */
+
+.jobs {
+  display: grid;
+  gap: 12px;
+}
+
+.job {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+  padding: 18px 20px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+
+.jobMain {
+  flex: 1;
+  min-width: 260px;
+}
+
+.jobTitleRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.jobMeta {
+  margin-top: 4px;
+  font-size: 0.82rem;
+  color: var(--concrete);
+}
+
+.jobActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pill {
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: #eef0f3;
+  color: #44505f;
+}
+
+.pill[data-s="Active"] {
+  background: #e9f7ef;
+  color: #1d7a46;
+}
+
+.pill[data-s="Draft"] {
+  background: #fdf3e2;
+  color: #9a6512;
+}
+
+.pill[data-s="Featured"] {
+  background: rgba(196, 154, 80, 0.18);
+  color: #7a5a1e;
+}
+
+/* ---------- Applications ---------- */
+
+.tableWrap {
+  overflow-x: auto;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+
+.table {
+  width: 100%;
+  min-width: 860px;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.86rem;
+}
+
+.table th {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  background: #faf9f6;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.table tr:last-child td {
+  border-bottom: 0;
+}
+
+.table td a {
+  display: block;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--gold);
+  text-underline-offset: 3px;
+}
+
+.table td a:hover {
+  color: var(--concrete);
+}
+
+.sub {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.nowrap {
+  white-space: nowrap;
+  color: var(--muted);
+}
+
+.table details {
+  margin-top: 6px;
+  font-size: 0.8rem;
+}
+
+.table summary {
+  cursor: pointer;
+  color: var(--concrete);
+}
+
+.table details p {
+  max-width: 36ch;
+  margin-top: 6px;
+  white-space: pre-wrap;
+  color: var(--ink-2);
+}
+
+.statusSelect {
+  padding: 7px 10px;
+  font-size: 0.78rem;
+}
+
+.statusSelect[data-s="New"] {
+  border-color: #2a5bb5;
+  color: #2a5bb5;
+}
+
+.statusSelect[data-s="Shortlisted"],
+.statusSelect[data-s="Interview Scheduled"] {
+  border-color: #9a6512;
+  color: #9a6512;
+}
+
+.statusSelect[data-s="Offered"] {
+  border-color: #1d7a46;
+  color: #1d7a46;
+}
+
+.statusSelect[data-s="Rejected"] {
+  color: var(--muted);
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  align-self: end;
+  padding: 12px 0;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.check input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--gold);
+}
+
+@media (max-width: 900px) {
+  .jobActions {
+    width: 100%;
+  }
+}

@@ -18,6 +18,12 @@ const paths = {
   upload: "M12 16V4M7 9l5-5 5 5M4 16v4h16v-4",
   plus: "M12 5v14M5 12h14",
   share: "M18 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM6 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM18 22a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98",
+  briefcase: "M16 16v1a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2v-1M4 7h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2zM9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2",
+  settings: "M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z",
+  shield: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
+  key: "M21 2l-2 2m-1.5 1.5L14 9M3 17.5A4.5 4.5 0 1 0 9 12M12 9l3 3M15 6l3 3",
+  user: "M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z",
+  check: "M20 6L9 17l-5-5",
 };
 
 export function Icon({ name, size = 18 }: { name: keyof typeof paths; size?: number }) {
@@ -31,7 +37,9 @@ export function Icon({ name, size = 18 }: { name: keyof typeof paths; size?: num
 const nav = [
   { href: "/admin", label: "Gallery", icon: "gallery" },
   { href: "/admin/projects", label: "Projects", icon: "projects" },
+  { href: "/admin/careers", label: "Careers & HR", icon: "briefcase" },
   { href: "/admin/socials", label: "Social Media", icon: "share" },
+  { href: "/admin/settings", label: "Settings", icon: "settings" },
 ] as const;
 
 /** Frame for every logged-in admin screen: sidebar (top bar on phones) + page heading + content. */
@@ -43,7 +51,7 @@ export default function AdminShell({
   onLock,
   children,
 }: {
-  active: "/admin" | "/admin/projects" | "/admin/socials";
+  active: "/admin" | "/admin/projects" | "/admin/careers" | "/admin/socials" | "/admin/settings";
   title: string;
   subtitle: string;
   actions?: React.ReactNode;
@@ -66,7 +74,7 @@ export default function AdminShell({
           ))}
         </nav>
         <div className={styles.sideFoot}>
-          <Link href={active === "/admin" ? "/gallery" : active === "/admin/projects" ? "/projects" : "/#footer"} target="_blank">
+          <Link href={active === "/admin" ? "/gallery" : active === "/admin/projects" ? "/projects" : active === "/admin/careers" ? "/careers" : active === "/admin/settings" ? "/careers" : "/#footer"} target="_blank">
             <Icon name="external" />
             View on website
           </Link>

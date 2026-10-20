@@ -26,20 +26,29 @@ export default function ScrollFX() {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const isReduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (isReduced) {
+      document.querySelectorAll<HTMLElement>("[data-reveal]").forEach((el) => {
+        el.style.opacity = "1";
+        el.style.transform = "none";
+      });
+      document.querySelectorAll<HTMLElement>("[data-clip]").forEach((el) => {
+        el.style.clipPath = "none";
+      });
+      return;
+    }
+
     const lenis = new Lenis({
       anchors: true,
       prevent: (node) => {
         if (!(node instanceof HTMLElement)) return false;
+        if (node.closest("nextjs-portal")) return false;
         return Boolean(
           node.hasAttribute("data-lenis-prevent") ||
           node.closest("[data-lenis-prevent]") ||
-          node.closest("[role='dialog']") ||
-          node.closest("[class*='modal']") ||
-          node.closest("[class*='lightbox']") ||
-          node.closest("[class*='backdrop']") ||
-          document.body.classList.contains("modal-open") ||
-          document.documentElement.classList.contains("modal-open")
+          node.closest("[class*='modalBackdrop']") ||
+          node.closest("[class*='lightboxBackdrop']") ||
+          document.body.classList.contains("modal-open")
         );
       },
     });
@@ -50,11 +59,11 @@ export default function ScrollFX() {
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
 
-    // Watch for any modal / dialog dynamically added to the DOM across the site
+    // Watch for actual modals or lightboxes in the application (excluding Next.js dev overlays)
     const checkModals = () => {
       const hasModal = Boolean(
         document.querySelector(
-          "[data-lenis-prevent], [role='dialog'], [class*='modalBackdrop'], [class*='lightboxBackdrop']"
+          "main [data-lenis-prevent], [class*='modalBackdrop'], [class*='lightboxBackdrop'], dialog[open]:not(nextjs-portal *)"
         )
       );
 
@@ -83,13 +92,24 @@ export default function ScrollFX() {
   }, []);
 
   useEffect(() => {
+    const isReduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (isReduced) {
+      document.querySelectorAll<HTMLElement>("[data-reveal]").forEach((el) => {
+        el.style.opacity = "1";
+        el.style.transform = "none";
+      });
+      document.querySelectorAll<HTMLElement>("[data-clip]").forEach((el) => {
+        el.style.clipPath = "none";
+      });
+      return;
+    }
+
     const mm = gsap.matchMedia();
 
     mm.add(
-      { motion: "(prefers-reduced-motion: no-preference)", desktop: "(min-width: 900px)" },
+      { desktop: "(min-width: 900px)", mobile: "(max-width: 899px)" },
       (ctx) => {
-        const { motion, desktop } = ctx.conditions as { motion: boolean; desktop: boolean };
-        if (!motion) return;
+        const { desktop } = ctx.conditions as { desktop: boolean };
         const all = <T extends HTMLElement = HTMLElement>(sel: string) => gsap.utils.toArray<T>(sel);
 
         // Hero: the roof-shaped window opens into a full-bleed photo while its sticky stage scrolls past.
@@ -98,15 +118,30 @@ export default function ScrollFX() {
           gsap
             .timeline({
               defaults: { ease: "none" },
-              scrollTrigger: { trigger: hero, start: "top top", end: "bottom bottom", scrub: 1 },
+              scrollTrigger: {
+                trigger: hero,
+                start: "top top",
+                end: "bottom bottom",
+                scrub: 1,
+                invalidateOnRefresh: true,
+              },
             })
             .to(q("[data-roof-copy]"), { autoAlpha: 0, x: -80, duration: 0.45 }, 0)
             .to(q("[data-roof-line]"), { opacity: 0, duration: 0.35 }, 0.05)
-            .to(q("[data-roof-window]"), { clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)", bottom: 0, duration: 1, ease: "power2.inOut" }, 0)
+            .to(
+              q("[data-roof-window]"),
+              {
+                clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+                bottom: 0,
+                duration: 1,
+                ease: "power2.inOut",
+              },
+              0
+            )
             .fromTo(q("[data-roof-window] img"), { scale: 1.18 }, { scale: 1, duration: 1 }, 0)
             .to(q("[data-roof-shade]"), { opacity: 1, duration: 0.3 }, 0.75)
             .fromTo(q("[data-roof-caption]"), { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.25 }, 0.85)
-            .to({}, { duration: 0.2 }); // hold on the full photo before the next section
+            .to({}, { duration: 0.2 });
         });
 
         // Decorative CSS loops (Skyline) only run while their section is on screen.
@@ -148,11 +183,23 @@ export default function ScrollFX() {
           );
         });
 
-        ScrollTrigger.batch("[data-reveal]", {
-          start: "top 90%",
-          once: true,
-          onEnter: (els) =>
-            gsap.fromTo(els, { opacity: 0, y: 48 }, { opacity: 1, y: 0, duration: 1.2, ease: "power3.out", stagger: 0.1 }),
+        // Individual ScrollTriggers ensure elements already in viewport on load animate in immediately
+        all("[data-reveal]").forEach((el) => {
+          gsap.fromTo(
+            el,
+            { opacity: 0, y: 44 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 1.1,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: el,
+                start: "top 92%",
+                once: true,
+              },
+            }
+          );
         });
 
         all("[data-clip]").forEach((el) => {
@@ -161,8 +208,8 @@ export default function ScrollFX() {
             { clipPath: "inset(100% 0% 0% 0%)" },
             {
               clipPath: "inset(0% 0% 0% 0%)",
-              duration: 1.6,
-              ease: "power4.inOut",
+              duration: 1.4,
+              ease: "power3.inOut",
               scrollTrigger: { trigger: el, start: "top 85%", once: true },
             },
           );
@@ -171,10 +218,10 @@ export default function ScrollFX() {
         all("[data-words]").forEach((el) => {
           gsap.fromTo(
             el.children,
-            { opacity: 0.12 },
+            { opacity: 0.15 },
             {
               opacity: 1,
-              stagger: 0.1,
+              stagger: 0.08,
               ease: "none",
               scrollTrigger: { trigger: el, start: "top 80%", end: "bottom 50%", scrub: true },
             },
@@ -211,15 +258,26 @@ export default function ScrollFX() {
       },
     );
 
-    // Late layout shifts (fonts, images, filter changes) move trigger positions, so recompute.
+    // Recompute trigger positions on mount and layout shifts
+    const refresh = () => ScrollTrigger.refresh();
+    refresh();
+    const rafId = requestAnimationFrame(refresh);
+    const t1 = setTimeout(refresh, 200);
+    const t2 = setTimeout(refresh, 600);
+    window.addEventListener("load", refresh, { once: true });
+
     let timer: ReturnType<typeof setTimeout>;
     const ro = new ResizeObserver(() => {
       clearTimeout(timer);
-      timer = setTimeout(() => ScrollTrigger.refresh(), 200);
+      timer = setTimeout(refresh, 200);
     });
     ro.observe(document.body);
 
     return () => {
+      cancelAnimationFrame(rafId);
+      clearTimeout(t1);
+      clearTimeout(t2);
+      window.removeEventListener("load", refresh);
       clearTimeout(timer);
       ro.disconnect();
       mm.revert();

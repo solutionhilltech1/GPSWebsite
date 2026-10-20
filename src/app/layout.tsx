@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo } from "next/font/google";
-import { Suspense, ViewTransition } from "react";
+import { Suspense } from "react";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 import Header from "@/components/Header";
@@ -77,9 +77,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SiteChrome>
           <Header />
         </SiteChrome>
-        <ViewTransition>
-          <main>{children}</main>
-        </ViewTransition>
+        <main>{children}</main>
         <SiteChrome>
           <Footer />
         </SiteChrome>
