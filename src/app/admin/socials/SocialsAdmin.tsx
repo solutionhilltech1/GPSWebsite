@@ -54,7 +54,7 @@ export default function SocialsAdmin() {
       const rawSocials = Array.isArray(json.settings?.socials) ? json.settings.socials : [];
       setSettings({
         phone: json.settings?.phone || "+91 95603 24929",
-        email: json.settings?.email || "connect@gpsprojectsprivatelimited.com",
+        email: json.settings?.email || "connect@gpsprojects.co.in",
         socials: rawSocials.map((s: SocialChannelItem) => ({
           id: s.id,
           label: s.label,
@@ -400,7 +400,7 @@ export default function SocialsAdmin() {
                 type="email"
                 value={settings.email}
                 onChange={(e) => setSettings({ ...settings, email: e.target.value })}
-                placeholder="connect@gpsprojectsprivatelimited.com"
+                placeholder="connect@gpsprojects.co.in"
                 className={styles.fieldInput}
                 required
               />

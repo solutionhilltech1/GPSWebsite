@@ -63,7 +63,7 @@ export const getAdminProfile = async (): Promise<AdminProfile> => {
 
   return {
     displayName: String(profileDoc?.displayName || "HR Operations & Management"),
-    email: String(profileDoc?.email || "careers@gpsprojectsprivatelimited.com"),
+    email: String(profileDoc?.email || "connect@gpsprojects.co.in"),
     phone: String(profileDoc?.phone || "+91 95603 24929"),
     department: String(profileDoc?.department || "HR & People Operations"),
     notifyApplications: profileDoc?.notifyApplications ?? true,

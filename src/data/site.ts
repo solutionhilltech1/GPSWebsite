@@ -5,12 +5,12 @@ const img = (id: string) => `https://images.unsplash.com/photo-${id}?w=2400&q=80
 export const site = {
   name: "GPS",
   fullName: "GPS Projects Private Limited",
-  url: "https://gps-one-opal.vercel.app",
+  url: "https://gpsprojects.co.in",
   tagline: "Building a Better Tomorrow",
   description:
     "GPS Projects Private Limited is a construction and infrastructure development company in Etah, Uttar Pradesh, delivering residential, commercial and industrial projects.",
   phone: "+91 95603 24929",
-  email: "connect@gpsprojectsprivatelimited.com",
+  email: "connect@gpsprojects.co.in",
   address: "House No. 138, Pipal Adda, Etah, Uttar Pradesh 207001",
   // Same address, split for structured data (schema.org PostalAddress).
   postal: { street: "House No. 138, Pipal Adda", city: "Etah", region: "Uttar Pradesh", code: "207001" },

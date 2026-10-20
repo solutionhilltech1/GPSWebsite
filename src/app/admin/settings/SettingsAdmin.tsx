@@ -31,7 +31,7 @@ export default function SettingsAdmin() {
   // Profile State
   const [profile, setProfile] = useState<AdminProfile>({
     displayName: "HR Operations & Management",
-    email: "careers@gpsprojectsprivatelimited.com",
+    email: "connect@gpsprojects.co.in",
     phone: "+91 95603 24929",
     department: "HR & People Operations",
     notifyApplications: true,
@@ -487,7 +487,7 @@ export default function SettingsAdmin() {
                   className={styles.input}
                   value={profile.email}
                   onChange={(e) => setProfile({ ...profile, email: e.target.value })}
-                  placeholder="e.g. careers@gpsprojectsprivatelimited.com"
+                  placeholder="e.g. connect@gpsprojects.co.in"
                   required
                 />
                 <span className={styles.helpText}>Primary recipient for candidate submissions and notifications.</span>
