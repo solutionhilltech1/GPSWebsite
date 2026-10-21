@@ -25,6 +25,7 @@ const profile = [
   { label: "CIN", value: site.legal.cin },
   { label: "Registrar", value: site.legal.registrar },
   { label: "Registered office", value: site.address },
+  { label: "Chairman & MD", value: `${site.chairman.salutation} ${site.chairman.name}` },
   { label: "Directors", value: site.directors.join(", ") },
 ];
 
@@ -85,6 +86,34 @@ export default function AboutPage() {
               </div>
             ))}
           </dl>
+        </div>
+      </section>
+
+      <section className="section dark">
+        <div className={`container ${styles.chairman}`}>
+          <figure className={styles.portrait} data-reveal>
+            <Image
+              src={site.chairman.image}
+              alt={`${site.chairman.salutation} ${site.chairman.name}, ${site.chairman.title} of ${site.fullName}, at his desk`}
+              width={1265}
+              height={1244}
+              sizes="(max-width: 900px) 100vw, 45vw"
+            />
+          </figure>
+          <div>
+            <span className="eyebrow" data-reveal>
+              Chairman&rsquo;s message
+            </span>
+            <blockquote className={`display h3 ${styles.quote}`} data-reveal>
+              {site.chairman.message}
+            </blockquote>
+            <p className={styles.signoff} data-reveal>
+              <strong>
+                {site.chairman.salutation} {site.chairman.name}
+              </strong>
+              <span>{site.chairman.title}</span>
+            </p>
+          </div>
         </div>
       </section>
 
@@ -172,7 +201,7 @@ export default function AboutPage() {
                 </span>
                 <div>
                   <h3>{d}</h3>
-                  <p>Director</p>
+                  <p>{d === site.chairman.name ? site.chairman.title : "Director"}</p>
                 </div>
               </li>
             ))}

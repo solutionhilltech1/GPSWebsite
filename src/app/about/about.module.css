@@ -226,3 +226,60 @@
     gap: 4px;
   }
 }
+
+.chairman {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: clamp(40px, 6vw, 96px);
+  align-items: center;
+}
+
+.portrait {
+  margin: 0;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+}
+
+.portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 45% 20%;
+  display: block;
+}
+
+.quote {
+  margin: 24px 0 32px;
+  font-weight: 500;
+  line-height: 1.45;
+  font-style: normal;
+}
+
+.signoff {
+  display: grid;
+  gap: 4px;
+  padding-left: 20px;
+  border-left: 2px solid var(--gold);
+}
+
+.signoff strong {
+  font-size: 1.15rem;
+}
+
+.signoff span {
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+}
+
+@media (max-width: 900px) {
+  .chairman {
+    grid-template-columns: 1fr;
+  }
+
+  .portrait {
+    aspect-ratio: 1 / 1;
+    max-width: 480px;
+  }
+}

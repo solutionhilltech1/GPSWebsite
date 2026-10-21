@@ -25,6 +25,15 @@ export const site = {
     registrar: "ROC Uttar Pradesh II",
   },
   directors: ["Chirag Rajput", "Rahul Verma"],
+  // Client copy (Oct 2026). `name` must match its entry in `directors`.
+  chairman: {
+    name: "Chirag Rajput",
+    salutation: "Mr.",
+    title: "Chairman and Managing Director",
+    image: "/chairman.jpg",
+    message:
+      "Every landmark we create at GPS PROJECTS PRIVATE LIMITED represents our passion for quality and human-centric design. We view real estate as a canvas to enrich human lives, connect families, and nurture thriving neighborhoods. Through mindful architecture, smart technological integration, and responsible development, we strive to build habitats that inspire wellness and growth. Driven by integrity and backed by robust strategic growth, we are dedicated to transforming urban landscapes and delivering promises that stand the test of time.",
+  },
   socials: [
     { label: "YouTube", href: "" },
     { label: "Instagram", href: "" },

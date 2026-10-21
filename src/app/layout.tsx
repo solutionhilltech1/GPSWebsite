@@ -68,7 +68,12 @@ const org = {
   slogan: site.tagline,
   telephone: site.phone,
   email: site.email,
-  founder: site.directors.map((name) => ({ "@type": "Person", name, jobTitle: "Director" })),
+  founder: site.directors.map((name) => ({
+    "@type": "Person",
+    name,
+    jobTitle: name === site.chairman.name ? site.chairman.title : "Director",
+    ...(name === site.chairman.name ? { image: `${site.url}${site.chairman.image}` } : {}),
+  })),
   identifier: { "@type": "PropertyValue", propertyID: "CIN", value: site.legal.cin },
   contactPoint: {
     "@type": "ContactPoint",
