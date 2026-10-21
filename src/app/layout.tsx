@@ -101,7 +101,10 @@ const org = {
     postalCode: site.postal.code,
     addressCountry: "IN",
   },
-  areaServed: { "@type": "State", name: "Uttar Pradesh" },
+  areaServed: ["Uttar Pradesh", "Delhi NCR", "Uttarakhand", "Punjab"].map((name) => ({
+    "@type": "AdministrativeArea",
+    name,
+  })),
 };
 const website = {
   "@type": "WebSite",

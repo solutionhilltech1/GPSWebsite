@@ -8,7 +8,7 @@ import styles from "./services.module.css";
 
 export const metadata: Metadata = pageMeta({
   title: "Construction & Infrastructure Services in Etah",
-  description: `${site.fullName} offers civil construction, roads, bridges and industrial complexes, interior and architectural design, and end-to-end project management across Uttar Pradesh.`,
+  description: `${site.fullName} offers civil construction, roads, bridges and industrial complexes, interior and architectural design, and end-to-end project management across Uttar Pradesh, Delhi NCR, Uttarakhand & Punjab.`,
   path: "/services",
   image: "/opengraph-image.png",
 });
@@ -26,7 +26,10 @@ export default function ServicesPage() {
               description: s.text,
               serviceType: s.title,
               provider: { "@id": `${site.url}/#organization` },
-              areaServed: { "@type": "State", name: "Uttar Pradesh" },
+              areaServed: ["Uttar Pradesh", "Delhi NCR", "Uttarakhand", "Punjab"].map((name) => ({
+                "@type": "AdministrativeArea",
+                name,
+              })),
               url: `${site.url}/services`,
             })),
             {

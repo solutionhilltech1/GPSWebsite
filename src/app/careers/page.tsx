@@ -58,7 +58,7 @@ export default async function CareersPage() {
           </h1>
           <p className="lead">
             We are hiring engineers, supervisors and site staff to deliver residential, commercial and industrial
-            projects across Uttar Pradesh.
+            projects across Uttar Pradesh, Delhi NCR, Uttarakhand &amp; Punjab.
           </p>
         </div>
       </section>

@@ -125,7 +125,7 @@ export const faqs = [
   },
   {
     q: "Where do you work?",
-    a: "We are based in Etah, Uttar Pradesh, and deliver projects across Uttar Pradesh.",
+    a: "We are based in Etah, Uttar Pradesh, and deliver projects across Uttar Pradesh, Delhi NCR, Uttarakhand & Punjab.",
   },
   {
     q: "Do you handle a project from design to handover?",
