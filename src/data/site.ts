@@ -5,7 +5,7 @@ const img = (id: string) => `https://images.unsplash.com/photo-${id}?w=2400&q=80
 export const site = {
   name: "GPS",
   fullName: "GPS Projects Private Limited",
-  url: "https://gpsprojects.co.in",
+  url: "https://www.gpsprojects.co.in",
   tagline: "Building a Better Tomorrow",
   description:
     "GPS Projects Private Limited is a construction and infrastructure development company in Etah, Uttar Pradesh, delivering residential, commercial and industrial projects.",

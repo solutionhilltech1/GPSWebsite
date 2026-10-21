@@ -1,9 +1,10 @@
 import type { NextConfig } from "next";
 
-// One canonical host: the Vercel preview URL and www both forward to the real domain, so Google
-// never indexes duplicates of the site. Keep in sync with `site.url` in src/data/site.ts.
-const CANONICAL = "https://gpsprojects.co.in";
-const duplicateHosts = ["gps-one-opal.vercel.app", "www.gpsprojects.co.in"];
+// One canonical host: the Vercel preview URL forwards to the real domain, so Google never indexes a duplicate.
+// Keep in sync with `site.url` in src/data/site.ts. Don't redirect the apex or www here: Vercel's domain settings
+// already send gpsprojects.co.in to www, and a rule back the other way is an infinite loop.
+const CANONICAL = "https://www.gpsprojects.co.in";
+const duplicateHosts = ["gps-one-opal.vercel.app"];
 
 const nextConfig: NextConfig = {
   cacheComponents: true,
