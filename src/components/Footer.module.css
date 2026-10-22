@@ -63,19 +63,27 @@
 }
 
 .wordmark {
-  font-family: var(--display);
-  font-size: clamp(9rem, 34vw, 32rem);
-  line-height: 0.75;
-  letter-spacing: 0.08em;
   text-align: center;
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(216, 185, 138, 0.35);
   user-select: none;
-  padding-top: 40px;
+  padding: 24px 16px 56px;
 }
 
 .wordmark span {
-  display: inline-block;
+  display: block;
+  font-family: var(--display);
+  font-size: clamp(2.6rem, 7vw, 5.5rem);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  color: var(--gold);
+}
+
+.wordmark small {
+  display: block;
+  margin-top: 14px;
+  font-size: 0.72rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--muted-light);
 }
 
 .legal {

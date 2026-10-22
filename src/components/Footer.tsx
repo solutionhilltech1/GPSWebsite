@@ -72,7 +72,8 @@ export default async function Footer() {
       </div>
 
       <div className={styles.wordmark} aria-hidden="true">
-        <span data-speed="-0.4">{site.name}</span>
+        <span>{site.name} Projects</span>
+        <small>{site.tagline}</small>
       </div>
 
       <div className={`container ${styles.legal}`}>

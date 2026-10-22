@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo } from "next/font/google";
+import Script from "next/script";
 import { Suspense } from "react";
 import "lenis/dist/lenis.css";
 import "./globals.css";
@@ -131,6 +132,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <ScrollFX />
         </Suspense>
         <Analytics />
+        {/* Google tag (gtag.js) */}
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-V0BYJQDLGH" strategy="afterInteractive" />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-V0BYJQDLGH');`}
+        </Script>
       </body>
     </html>
   );
