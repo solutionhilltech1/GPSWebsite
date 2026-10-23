@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import { genUploader } from "uploadthing/client";
@@ -57,6 +57,19 @@ const fetchProjects = async (): Promise<AdminProject[] | null> => {
 };
 
 const lines = (s: string) => s.split("\n").map((l) => l.trim()).filter(Boolean);
+
+// Preview of a picked file. The blob URL is made once per file and freed on unmount
+// (inline createObjectURL made a new, never-freed copy of every photo on each keystroke).
+function FilePreview({ file, alt }: { file: File; alt: string }) {
+  const ref = useRef<HTMLImageElement>(null);
+  useEffect(() => {
+    const url = URL.createObjectURL(file);
+    ref.current!.src = url;
+    return () => URL.revokeObjectURL(url);
+  }, [file]);
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img ref={ref} alt={alt} />;
+}
 
 export default function ProjectsAdmin() {
   // null = still checking the session cookie
@@ -245,9 +258,13 @@ export default function ProjectsAdmin() {
                 <div className={styles.formGroup}>
                   <label className={styles.formLabel}>Cover photo (required to show on the site)</label>
                   <div className={styles.modalPreview}>
-                    {(coverFile || draft.image) && (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={coverFile ? URL.createObjectURL(coverFile) : draft.image!.url} alt="Cover" />
+                    {coverFile ? (
+                      <FilePreview file={coverFile} alt="Cover" />
+                    ) : (
+                      draft.image && (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={draft.image.url} alt="Cover" />
+                      )
                     )}
                   </div>
                   <input
@@ -381,8 +398,7 @@ export default function ProjectsAdmin() {
                     ))}
                     {galleryFiles.map((f) => (
                       <div key={f.name + f.size} className={styles.thumb} data-new>
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={URL.createObjectURL(f)} alt={f.name} />
+                        <FilePreview file={f} alt={f.name} />
                         <button type="button" title="Don't add" onClick={() => setGalleryFiles(galleryFiles.filter((x) => x !== f))}>
                           ✕
                         </button>

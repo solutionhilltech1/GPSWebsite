@@ -7,8 +7,10 @@
 }
 
 .header[data-scrolled="true"] {
-  background: rgba(244, 243, 239, 0.88);
-  backdrop-filter: blur(14px);
+  /* Blur behind a fixed bar re-renders every scroll frame: small radius, more opaque fill keeps the look. */
+  background: rgba(244, 243, 239, 0.92);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   box-shadow: 0 1px 0 var(--line);
 }
 

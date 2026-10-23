@@ -117,6 +117,36 @@ export const machinery = {
   ],
 };
 
+// Home page "What our clients say". The section stays hidden while this is empty.
+// TODO(client): PLACEHOLDER quotes, not real clients. Replace with real, permissioned feedback before launch.
+export const testimonials: { quote: string; name: string; role: string }[] = [
+  {
+    quote: "GPS Projects handed over our home exactly on the promised date. The site was clean, and we got updates every week.",
+    name: "Rakesh S.",
+    role: "Homeowner, Etah",
+  },
+  {
+    quote: "Their pricing was clear from day one. No hidden costs, and the quality of materials was better than we expected.",
+    name: "Neha & Amit G.",
+    role: "Villa owners, Agra",
+  },
+  {
+    quote: "We built our showroom with them. One team handled design, construction and handover, which saved us months.",
+    name: "Vikas T.",
+    role: "Business owner, Aligarh",
+  },
+  {
+    quote: "Having their own machinery on site made a real difference. Work never stopped waiting for equipment.",
+    name: "Sunil K.",
+    role: "Warehouse project, Kasganj",
+  },
+  {
+    quote: "Professional engineers, honest advice and a respectful team. We would trust GPS with our next project too.",
+    name: "Priya M.",
+    role: "Residential project, Mainpuri",
+  },
+];
+
 // Visible FAQ on /services, also sent to Google as FAQPage structured data (the two must stay identical).
 export const faqs = [
   {

@@ -78,10 +78,15 @@ export default function ScrollFX() {
       }
     };
 
-    const observer = new MutationObserver(checkModals);
+    // Coalesce to one check per frame: counters and React re-renders mutate the DOM many times a second.
+    let pending = 0;
+    const observer = new MutationObserver(() => {
+      if (!pending) pending = requestAnimationFrame(() => ((pending = 0), checkModals()));
+    });
     observer.observe(document.body, { childList: true, subtree: true });
 
     return () => {
+      cancelAnimationFrame(pending);
       observer.disconnect();
       document.documentElement.classList.remove("modal-open");
       document.body.classList.remove("modal-open");

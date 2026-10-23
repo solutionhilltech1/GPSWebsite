@@ -190,9 +190,11 @@ textarea {
   overflow: hidden;
 }
 
+/* Parallax layers stay on the GPU so scroll-scrubbed moves never repaint the photo. */
 .frame > .media {
   position: absolute;
   inset: -12% 0;
+  will-change: transform;
 }
 
 .media img {
@@ -215,6 +217,7 @@ textarea {
   position: absolute;
   inset: -12% 0;
   opacity: 0.55;
+  will-change: transform;
 }
 
 .pageHero::after {

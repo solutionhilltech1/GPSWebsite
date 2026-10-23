@@ -78,6 +78,46 @@
   max-width: 70ch;
 }
 
+/* Floating WhatsApp + call buttons, bottom-right on every public page. */
+.float {
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.float a {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  transition: transform 0.3s var(--ease);
+}
+
+.float a:hover {
+  transform: scale(1.08);
+}
+
+.float svg {
+  width: 28px;
+  height: 28px;
+  fill: currentColor;
+}
+
+.whatsapp {
+  background: #25d366;
+}
+
+.call {
+  background: var(--gold);
+}
+
 @media (max-width: 900px) {
   .cols {
     grid-template-columns: 1fr 1fr;

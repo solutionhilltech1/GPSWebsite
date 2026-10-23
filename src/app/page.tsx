@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import Skyline from "@/components/Skyline";
+import Testimonials from "@/components/Testimonials";
 import Words from "@/components/Words";
-import { about, machinery, pillars, services, site, stats } from "@/data/site";
+import { about, machinery, pillars, services, site, stats, testimonials } from "@/data/site";
 import { pageMeta } from "@/lib/seo";
 import styles from "./page.module.css";
 
@@ -166,6 +167,9 @@ export default function Home() {
           </ul>
         </div>
       </section>
+
+      {/* 7. Testimonials */}
+      {testimonials.length > 0 && <Testimonials items={testimonials} />}
     </>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState, useRef, useCallback } from "react";
 import type { GalleryItem } from "@/lib/gallery";
 import styles from "./gallery.module.css";
@@ -42,7 +43,8 @@ export default function GalleryClient() {
       if (!res.ok) throw new Error("Failed to fetch gallery");
       const data: ApiResponse = await res.json();
 
-      if (data.success) {
+      // Unchanged since the last poll: skip the state update so the grid doesn't re-render.
+      if (data.success && data.hash !== lastHashRef.current) {
         // Check for additions/removals if already initialized
         if (knownIdsRef.current.size > 0 && data.hash !== lastHashRef.current) {
           const currentIds = new Set(data.images.map((i) => i.id));
@@ -89,13 +91,14 @@ export default function GalleryClient() {
     }
   }, [triggerToast]);
 
-  // Dynamic Auto-sync Polling in background & Window Focus Events
+  // Auto-sync: poll while the tab is visible, and refetch the moment it comes back into view.
+  // Was every 2s in every tab, hidden ones included: a server call + full Mongo read per visitor every 2s.
   useEffect(() => {
     fetchGallery();
 
     const pollInterval = setInterval(() => {
-      fetchGallery();
-    }, 2000);
+      if (document.visibilityState === "visible") fetchGallery();
+    }, 30000);
 
     const onVisibilityChange = () => {
       if (document.visibilityState === "visible") {
@@ -227,11 +230,14 @@ export default function GalleryClient() {
                   }}
                 >
                   <div className={styles.cardMedia}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                    {/* Uploads can be up to 16MB: next/image serves a resized copy. width/height are only the
+                        pre-load aspect hint; CSS sets the real box (masonry keeps the natural ratio). */}
+                    <Image
                       src={`${photo.src}?v=${photo.mtime}`}
                       alt={photo.title}
-                      loading="lazy"
+                      width={800}
+                      height={550}
+                      sizes="(max-width: 760px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className={styles.cardImg}
                     />
 
@@ -336,10 +342,12 @@ export default function GalleryClient() {
 
             {/* Left/Center: High-resolution Image Stage */}
             <div className={styles.lightboxStage} onClick={() => setLightboxIndex(null)}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src={`${activePhoto.src}?v=${activePhoto.mtime}`}
                 alt={activePhoto.title}
+                width={1600}
+                height={1100}
+                sizes="(max-width: 760px) 100vw, 70vw"
                 className={styles.lightboxImage}
                 onClick={(e) => e.stopPropagation()}
               />
