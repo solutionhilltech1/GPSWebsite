@@ -62,30 +62,6 @@
   margin-top: 14px;
 }
 
-.wordmark {
-  text-align: center;
-  user-select: none;
-  padding: 24px 16px 56px;
-}
-
-.wordmark span {
-  display: block;
-  font-family: var(--display);
-  font-size: clamp(2.6rem, 7vw, 5.5rem);
-  line-height: 1;
-  letter-spacing: 0.02em;
-  color: var(--gold);
-}
-
-.wordmark small {
-  display: block;
-  margin-top: 14px;
-  font-size: 0.72rem;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: var(--muted-light);
-}
-
 .legal {
   display: flex;
   justify-content: space-between;

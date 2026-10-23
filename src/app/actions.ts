@@ -34,7 +34,7 @@ export async function sendEnquiry(_prev: EnquiryState, form: FormData): Promise<
   try {
     await mailer.sendMail({
       from: process.env.EMAIL_FROM,
-      to: process.env.EMAIL_TO,
+      to: process.env.EMAIL_TO || site.email || "connect@gpsprojects.co.in",
       replyTo: enquiry.email || undefined,
       subject: `New enquiry: ${enquiry.name.replace(/\s+/g, " ")}${enquiry.project ? ` (${enquiry.project})` : ""}`,
       text: Object.entries(enquiry)

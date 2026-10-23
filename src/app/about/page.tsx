@@ -55,15 +55,24 @@ export default function AboutPage() {
       />
       <section className="pageHero">
         <div className="media" data-speed="0.3">
-          <Image src={site.images.site} alt="Construction site and building frame by GPS Projects" fill priority sizes="100vw" />
+          <Image
+            src="/hero-sunset.jpg"
+            alt="Civil engineering and skyline construction by GPS Projects"
+            fill
+            priority
+            sizes="100vw"
+          />
         </div>
         <div className="container">
-          <span className="eyebrow">About us</span>
+          <span className="eyebrow">About GPS Projects</span>
           <h1 className="display h1">
             Building trust,
             <br />
-            <em>brick by brick</em>
+            <em>shaping skylines</em>
           </h1>
+          <p className="lead">
+            Delivering enduring civil engineering, residential developments, and infrastructure landmarks across Uttar Pradesh with uncompromising rigor.
+          </p>
         </div>
       </section>
 
